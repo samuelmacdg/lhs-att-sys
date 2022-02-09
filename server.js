@@ -147,7 +147,7 @@ app.post('/addclass', (req, res) => {
             if (err) {
                 return res.send({ success: false, errcode: 2, message: err });
             }
-            if (this?.changes > 0) {
+            if (this.changes > 0) {
                 return res.send({ success: true, errcode: 0, message: 'success' });
             }
             else {
@@ -169,7 +169,7 @@ app.post('/removeclass', (req, res) => {
             if (err) {
                 return res.send({ success: false, errcode: 2, message: err });
             }
-            if (this?.changes > 0) {
+            if (this.changes > 0) {
                 return res.send({ success: true, errcode: 0, message: 'success' });
             }
             else {
