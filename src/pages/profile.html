@@ -1,0 +1,190 @@
+<!--JOHN GLAY C. BUNAO-->
+<!--12-RITHCIE-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- DISPLAYS SITE PROPERLY BASED ON USER'S DEVICE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- LINKS -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="profile.css">
+    <link rel="icon" type="image/x-icon" href="images/LHS.png">
+    <script src="./global.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- TITLE -->
+    <title>LHS | Online-Based Classroom Monitoring System</title>
+</head>
+
+<body onload="profileOnLoad()">
+    <!--OVERLAY-1 START-->
+    <div class="overlay-1" id="profile-overlay-1">
+        <div class="background"></div>
+        <div class="content">
+            <div class="overlay-text">
+                <div class="overlay-top">
+                    <p class="title">Delete Account</p>
+                    <i class="fas fa fa-times"></i>
+                </div>
+                <p class="reminder">You are about to delete your account. If you are sure you would like to remove your
+                    profile, please enter your password to confirm identity.</p>
+                <label for="password">Password</label><br>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <div class="warning">
+                    <p class="warning-text"><span>Warning!</span> Once your account is deleted, all your data will be
+                        irreversibly lost.</p>
+                </div>
+            </div>
+            <div class="overlay-btn">
+                <a href="#" class="button back">Back to Profile</a>
+                <a href="#" class="button account">Delete Account</a>
+            </div>
+        </div>
+    </div>
+    <!--OVERLAY-1 END-->
+    <!--OVERLAY-2 START-->
+    <div class="overlay-2" id="profile-overlay-2">
+        <div class="background"></div>
+        <div class="content">
+            <div class="overlay-text">
+                <div class="overlay-top">
+                    <p class="title">Profile</p>
+                    <i class="fas fa fa-times"></i>
+                </div>
+                <p class="reminder">Your profile was successfully updated.</p>
+            </div>
+            <div class="overlay-btn">
+                <a href="#" class="button back">OK</a>
+            </div>
+        </div>
+    </div>
+    <!--OVERLAY-2 END-->
+    <!--MENU OVERLAY START-->
+    <div class="menu-overlay hide-for-desktop" id="profile-menu-overlay">
+        <div class="menu-content">
+            <div class="menu-links">
+                <a href="#Home">Home</a>
+                <a href="#">Attendance</a>
+                <a href="#Contact">Contact</a>
+                <a href="#Team">Team</a>
+                <a href="login.html" class="button menu-button">Log In</a>
+                <!--logged in-->
+                <a href="#">Logout</a>
+                <a href="profile.html"><img src="images/profile.png" alt="profile"></a>
+            </div>
+        </div>
+    </div>
+    <!--MENU OVERLAY END-->
+    <!--LOADING START-->
+    <div class="loading-overlay" id="profile-loading">
+        <div class="loading-background">
+            <div class="sk-fading-circle">
+                <div class="sk-circle1 sk-circle"></div>
+                <div class="sk-circle2 sk-circle"></div>
+                <div class="sk-circle3 sk-circle"></div>
+                <div class="sk-circle4 sk-circle"></div>
+                <div class="sk-circle5 sk-circle"></div>
+                <div class="sk-circle6 sk-circle"></div>
+                <div class="sk-circle7 sk-circle"></div>
+                <div class="sk-circle8 sk-circle"></div>
+                <div class="sk-circle9 sk-circle"></div>
+                <div class="sk-circle10 sk-circle"></div>
+                <div class="sk-circle11 sk-circle"></div>
+                <div class="sk-circle12 sk-circle"></div>
+            </div>
+        </div>
+    </div>
+    <!--LOADING END-->
+    <!--VAVIGATION BAR START-->
+    <header class="header">
+        <nav class="container">
+            <div class="desktop flex flex-jc-sb flex-ai-c">
+                <a href="#" class="nav-logo">
+                    <img src="images/LHS.png" alt="lhs_logo">
+                </a>
+                <div class="nav-links hide-for-mobile">
+                    <a href="index.html#Home">Home</a>
+                    <a href="#">Attendance</a>
+                    <a href="index.html#Contact">Contact</a>
+                    <a href="index.html#Team">Team</a>
+                </div>
+                <div class="nav-profile hide-for-mobile dropdown">
+                    <img src="images/profile.png" alt="profile_picture">
+                    <div class="dropdown-content" style="right: 0; width: 10.625rem;">
+                        <a href="#Profile">Profile</a>
+                        <a href="#Change Password">Change Password</a>
+                        <a href="/">Logout</a>
+                    </div>
+                </div>
+                <!--for mobile-->
+                <a href="/" id="btnHamburger" class="nav-toggle hide-for-desktop">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <!--VAVIGATION BAR END-->
+    <!--PROFILE PAGE START-->
+    <div class="base container">
+        <section class="profile desktop" id="Profile">
+            <form action="#">
+                <div class="first">
+                    <div class="profile-top">
+                        <p class="profile-text">Profile</p>
+                        <div class="teacher-student">
+                            <a href="#" class="button btn">Teacher</a>
+                            <a href="#" class="button btn active">Student</a>
+                        </div>
+                    </div>
+                    <div class="profile-info">
+                        <div class="profile-picture">
+                            <img class="profile-pic" src="images/profile.png" alt="profile picture">
+                            <div class="change">
+                                <p>Upload<br>Photo</p>
+                            </div>
+                        </div>
+                        <div class="profile-data">
+                            <!-- <input type="text" id="lastname" name="username" placeholder="Username" required><br> -->
+                            <input type="text" id="email" name="email" placeholder="Email" required><br>
+                            <input type="text" id="firstname" name="firstname" placeholder="First name" required><br>
+                            <input type="text" id="lastname" name="lastname" placeholder="Last name" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="second" id="Change Password">
+                    <p class="profile-text">Change Password</p>
+                    <div class="passwords">
+                        <div class="new-pass">
+                            <label for="newpassword">New Password</label>
+                            <input class="border-error" type="password" id="newpassword" name="newpassword"
+                                placeholder="New Password" required>
+                            <div class="new"></div>
+                        </div>
+                        <div class="confirm-pass top">
+                            <label for="confirmnewpassword">Confirm New Password</label>
+                            <input class="border-error" type="password" id="confirmpassword" name="confirmnewpassword"
+                                placeholder="Confirm New Password" required>
+                            <div class="confirm"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="third">
+                    <a href="#" class="button delete">Delete Account</a>
+                    <a href="#" class="button changes" type="submit" value="submit">Save Changes</a>
+                </div>
+            </form>
+        </section>
+    </div>
+    <!--PROFILE PAGE END-->
+    <script src="scrollreveal.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

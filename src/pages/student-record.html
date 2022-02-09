@@ -1,0 +1,177 @@
+<!--JOHN GLAY C. BUNAO-->
+<!--12-RITHCIE-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- DISPLAYS SITE PROPERLY BASED ON USER'S DEVICE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- LINKS -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="student-record.css">
+    <link rel="icon" type="image/x-icon" href="images/LHS.png">
+    <script src="./global.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- TITLE -->
+    <title>LHS | Online-Based Classroom Monitoring System</title>
+</head>
+
+<body onload="sRecordOnLoad()">
+    <!--OVERLAY START-->
+    <div class="overlay" id="student-record-overlay-1">
+        <div class="background"></div>
+        <div class="content">
+            <div class="overlay-text">
+                <div class="overlay-top">
+                    <p class="title">Remove Student</p>
+                    <i class="fas fa fa-times"></i>
+                </div>
+                <p class="reminder">You are about to remove this student from your records. Are you sure you want to
+                    continue? </p>
+            </div>
+            <div class="overlay-btn">
+                <a href="#" class="button back">Cancel</a>
+                <a href="#" class="button account">Continue</a>
+            </div>
+        </div>
+    </div>
+    <!--OVERLAY END-->
+    <!--MENU OVERLAY START-->
+    <div class="menu-overlay hide-for-desktop" id="student-record-menu-overlay">
+        <div class="menu-content">
+            <div class="menu-links">
+                <a href="#Home">Home</a>
+                <a href="#">Attendance</a>
+                <a href="#Contact">Contact</a>
+                <a href="#Team">Team</a>
+                <a href="login.html" class="button menu-button">Log In</a>
+                <!--logged in-->
+                <a href="#">Logout</a>
+                <a href="profile.html"><img src="images/profile.png" alt="profile"></a>
+            </div>
+        </div>
+    </div>
+    <!--MENU OVERLAY END-->
+    <!--LOADING START-->
+    <div class="loading-overlay" id="student-record-loading">
+        <div class="loading-background">
+            <div class="sk-fading-circle">
+                <div class="sk-circle1 sk-circle"></div>
+                <div class="sk-circle2 sk-circle"></div>
+                <div class="sk-circle3 sk-circle"></div>
+                <div class="sk-circle4 sk-circle"></div>
+                <div class="sk-circle5 sk-circle"></div>
+                <div class="sk-circle6 sk-circle"></div>
+                <div class="sk-circle7 sk-circle"></div>
+                <div class="sk-circle8 sk-circle"></div>
+                <div class="sk-circle9 sk-circle"></div>
+                <div class="sk-circle10 sk-circle"></div>
+                <div class="sk-circle11 sk-circle"></div>
+                <div class="sk-circle12 sk-circle"></div>
+            </div>
+        </div>
+    </div>
+    <!--LOADING END-->
+    <!--VAVIGATION BAR START-->
+    <header class="header">
+        <nav class="container">
+            <div class="desktop flex flex-jc-sb flex-ai-c">
+                <a href="#" class="nav-logo">
+                    <img src="images/LHS.png" alt="lhs_logo">
+                </a>
+                <div class="nav-links hide-for-mobile">
+                    <a href="index.html#Home">Home</a>
+                    <a href="#">Attendance</a>
+                    <a href="index.html#Contact">Contact</a>
+                    <a href="index.html#Team">Team</a>
+                </div>
+                <div class="nav-profile hide-for-mobile dropdown">
+                    <a href="profile.html"><img src="images/profile.png" alt="profile_picture"></a>
+                    <div class="dropdown-content" style="right: 0; width: 10.625rem;">
+                        <a href="profile.html#Profile">Profile</a>
+                        <a href="profile.html#Change Password">Change Password</a>
+                        <a href="/">Logout</a>
+                    </div>
+                </div>
+                <!--for mobile-->
+                <a href="/" id="btnHamburger" class="nav-toggle hide-for-desktop">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <!--VAVIGATION BAR END-->
+    <!--STUDENT RECORD START-->
+    <div class="base container">
+        <section class="student-record desktop">
+            <div class="record-top">
+                <a href="class-record.html"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                <a href="#" class="student-remove">Remove Student</a>
+            </div>
+            <h1 class="subject">Philippine Literature</h1>
+            <p class="info"><span class="section">12-Rithcie</span> | <span class="teacher">Lordy Digan</span></p>
+            <div class="student-info">
+                <div class="student-flex">
+                    <img class="student-profile" src="images/profile.png" alt="profile">
+                    <div class="student-information">
+                        <h3 class="student-name">John Glay C. Bunao</h3>
+                        <p class="info-student"><span class="student-section">12-Rithcie</span> | <span
+                                class="student">Student</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="circles">
+                <div class="left">
+                    <p class="circle number-attend">01</p>
+                    <p class="attend">attendances</p>
+                </div>
+                <div class="right">
+                    <p class="circle number-absen">01</p>
+                    <p class="absen">absences</p>
+                </div>
+            </div>
+
+            <div class="records">
+                <div class="no-records" id="student-no-records">
+                    <img src="images/student-record.png" alt="no-students">
+                </div>
+                <div class="yes-records" id="student-yes-records">
+                    <div class="record">
+                        <div class="record-flex">
+                            <p class="date">november 29, 2021</p>
+                            <p class="time">...</p>
+                            <p class="loading">...</p>
+                        </div>
+                    </div>
+                    <div class="record late">
+                        <div class="record-flex">
+                            <p class="date">november 28, 2021</p>
+                            <p class="time">10:15 <span class="am-or-pm">am</span></p>
+                            <p class="pres-or-abs">absent</p>
+                        </div>
+                    </div>
+                    <div class="record">
+                        <div class="record-flex">
+                            <p class="date">november 27, 2021</p>
+                            <p class="time">9:00 <span class="am-or-pm">am</span></p>
+                            <p class="pres-or-abs">present</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!--STUDENT RECORD END-->
+    <script src="scrollreveal.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

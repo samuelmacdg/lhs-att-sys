@@ -1,0 +1,524 @@
+<!--JOHN GLAY C. BUNAO-->
+<!--12-RITHCIE-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- DISPLAYS SITE PROPERLY BASED ON USER'S DEVICE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- LINKS -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="teacher-dashboard.css">
+    <link rel="icon" type="image/x-icon" href="images/LHS.png">
+    <!-- TITLE -->
+    <title>LHS | Online-Based Classroom Monitoring System</title>
+</head>
+
+<body>
+    <!--OVERLAY-1 START-->
+    <div class="overlay-1">
+        <div class="background"></div>
+        <div class="content">
+            <div class="overlay-text">
+                <div class="overlay-top">
+                    <p class="title">Remove from Class</p>
+                    <i class="fas fa fa-times"></i>
+                </div>
+                <p class="reminder">You are about to remove this class from your dashboard. Are you sure you
+                    want to continue?</p>
+            </div>
+            <div class="overlay-btn">
+                <a href="#" class="button back">Cancel</a>
+                <a href="#" class="button account">Continue</a>
+            </div>
+        </div>
+    </div>
+    <!--OVERLAY-1 END-->
+    <!--OVERLAY-2 START-->
+    <div class="overlay-2">
+        <div class="background"></div>
+        <div class="content">
+            <div class="overlay-text">
+                <div class="overlay-top">
+                    <p class="title">Reset Progress</p>
+                    <i class="fas fa fa-times"></i>
+                </div>
+                <p class="reminder">You are about to remove all progress on this class. Attendances will
+                    reset to zero. Are you sure you want to continue?</p>
+            </div>
+            <div class="overlay-btn">
+                <a href="#" class="button back">Cancel</a>
+                <a href="#" class="button account">Reset Progress</a>
+            </div>
+        </div>
+    </div>
+    <!--OVERLAY-2 END-->
+    <!--OVERLAY-3 START-->
+    <div class="overlay-3">
+        <div class="background"></div>
+        <div class="content">
+            <div class="overlay-top">
+                <p class="title">Create New Section</p>
+                <i class="fas fa fa-times"></i>
+            </div>
+            <div class="inputs">
+                <input type="number" min="1" max="12" name="grade-level" placeholder="Grade level" required>
+                <input type="text" name="section" placeholder="Section" required>
+                <input type="text" name="subject" placeholder="Subject" required>
+            </div>
+            <div class="overlay-btn">
+                <a href="#" class="button back">Cancel</a>
+                <a href="#" class="button account">Create</a>
+            </div>
+        </div>
+    </div>
+    <!--OVERLAY-3 END-->
+    <!--OVERLAY-4 START-->
+    <div class="overlay-4">
+        <div class="background"></div>
+        <div class="content">
+            <div class="overlay-top">
+                <p class="title">Add / Edit Attendance</p>
+                <i class="fas fa fa-times"></i>
+            </div>
+            <div class="inputs">
+                <input type="datetime-local" name="date" placeholder="Date" required>
+                <label for="day">Repeat</label>
+                <div class="days">
+                    <a href="#" name="day" class="button">Mon</a>
+                    <a href="#" name="day" class="button">Tue</a>
+                    <a href="#" name="day" class="button">Wed</a>
+                    <a href="#" name="day" class="button">Thu</a>
+                    <a href="#" name="day" class="button">Fri</a>
+                </div>
+                <label for="limit">Time Limit</label>
+                <div class="limits">
+                    <a href="#" name="limit" class="button">15 min</a>
+                    <a href="#" name="limit" class="button">30 min</a>
+                    <a href="#" name="limit" class="button">45 min</a>
+                    <a href="#" name="limit" class="button">1 hour</a>
+                </div>
+            </div>
+            <div class="overlay-btn">
+                <a href="#" class="button back">Cancel</a>
+                <a href="#" class="button account">Continue</a>
+            </div>
+        </div>
+    </div>
+    <!--OVERLAY-4 END-->
+    <!--MENU OVERLAY START-->
+    <div class="menu-overlay hide-for-desktop" id="main-menu-overlay">
+        <div class="menu-content">
+            <div class="menu-links">
+                <a href="#Home">Home</a>
+                <a href="#">Attendance</a>
+                <a href="#Contact">Contact</a>
+                <a href="#Team">Team</a>
+                <a href="login.html" class="button menu-button">Log In</a>
+                <!--logged in-->
+                <a href="#">Logout</a>
+                <a href="profile.html"><img src="images/profile.png" alt="profile"></a>
+            </div>
+        </div>
+    </div>
+    <!--MENU OVERLAY END-->
+    <!--LOADING START-->
+    <div class="loading-overlay">
+        <div class="loading-background">
+            <div class="sk-fading-circle">
+                <div class="sk-circle1 sk-circle"></div>
+                <div class="sk-circle2 sk-circle"></div>
+                <div class="sk-circle3 sk-circle"></div>
+                <div class="sk-circle4 sk-circle"></div>
+                <div class="sk-circle5 sk-circle"></div>
+                <div class="sk-circle6 sk-circle"></div>
+                <div class="sk-circle7 sk-circle"></div>
+                <div class="sk-circle8 sk-circle"></div>
+                <div class="sk-circle9 sk-circle"></div>
+                <div class="sk-circle10 sk-circle"></div>
+                <div class="sk-circle11 sk-circle"></div>
+                <div class="sk-circle12 sk-circle"></div>
+            </div>
+        </div>
+    </div>
+    <!--LOADING END-->
+    <!--VAVIGATION BAR START-->
+    <header class="header">
+        <nav class="container">
+            <div class="desktop flex flex-jc-sb flex-ai-c">
+                <a href="#" class="nav-logo">
+                    <img src="images/LHS.png" alt="lhs_logo">
+                </a>
+                <div class="nav-links hide-for-mobile">
+                    <a href="index.html#Home">Home</a>
+                    <a href="#">Attendance</a>
+                    <a href="index.html#Contact">Contact</a>
+                    <a href="index.html#Team">Team</a>
+                </div>
+                <div class="nav-profile hide-for-mobile dropdown">
+                    <a href="profile.html"><img src="images/profile.png" alt="profile_picture"></a>
+                    <div class="dropdown-content" style="right: 0; width: 10.625rem;">
+                        <a href="profile.html#Profile">Profile</a>
+                        <a href="profile.html#Change Password">Change Password</a>
+                        <a href="/">Logout</a>
+                    </div>
+                </div>
+                <!--for mobile-->
+                <a href="/" id="btnHamburger" class="nav-toggle hide-for-desktop">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <!--VAVIGATION BAR END-->
+    <!--TEACHER DASHBOARD START-->
+    <div class="base container">
+        <section class="teacher-dashboard desktop">
+            <div class="td-text">
+                <h1>attendance</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit</p>
+            </div>
+            <!--Announcement Section-->
+            <div class="announcement">
+                <div class="td-announcement">
+                    <p class="text">Announcement</p>
+                    <textarea name="message" id="message" placeholder="Announce something to your class..."
+                        rows="3"></textarea>
+                    <div class="outside">
+                        <div class="send-to dropdown">
+                            <p class="to">class</p>
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                            <div class="dropdown-content" style="width: 100%; top: 0; left: 0; margin-top: 2.1875rem;">
+                                <a href="#">All Classes</a>
+                                <a href="#">12-Ritchie</a>
+                                <a href="#">12-Rossum</a>
+                                <a href="#">12-Pixar</a>
+                            </div>
+                        </div>
+                        <div class="send-to-btn">
+                            <a href="#" class="cancel-send">Cancel</a>
+                            <a href="#" class="button post-send">Post</a>
+                        </div>
+                    </div>
+                    <div class="inside">
+                        <!--No Announcement Yet-->
+                        <div class="no-announcement" id="teacher-no-announcement">
+                            <img src="images/announcement.png" alt="no-announcement">
+                        </div>
+                        <div class="yes-announcement" id="teacher-yes-announcement">
+                            <!--Message-->
+                            <div class="m-content">
+                                <div class="content-top">
+                                    <div class="content-detail">
+                                        <img src="images/profile.png" alt="profile">
+                                        <div class="from">
+                                            <p class="gra-sec"><span class="gra">Grade 12</span> - <span
+                                                    class="sec">Ritchie</span></p>
+                                            <p class="teach">Lordy Ever Digan</p>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown">
+                                        <a href="#"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <div class="dropdown-content"
+                                            style="right: 0; width: 9.3125rem; top: 0; margin: 0 0.625rem 0 0;">
+                                            <a href="#">Edit</a>
+                                            <a href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-mid">
+                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                </div>
+                                <p class="when">December 01, 2021</p>
+                            </div>
+                            <!--Message-->
+                            <div class="m-content">
+                                <div class="content-top">
+                                    <div class="content-detail">
+                                        <img src="images/profile.png" alt="profile">
+                                        <div class="from">
+                                            <p class="gra-sec"><span class="gra">Grade 12</span> - <span
+                                                    class="sec">Ritchie</span></p>
+                                            <p class="teach">Lordy Ever Digan</p>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown">
+                                        <a href="#"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <div class="dropdown-content"
+                                            style="right: 0; width: 9.3125rem; top: 0; margin: 0 0.625rem 0 0;">
+                                            <a href="#">Edit</a>
+                                            <a href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-mid">
+                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                </div>
+                                <p class="when">November 30, 2021</p>
+                            </div>
+                            <!--Message-->
+                            <div class="m-content">
+                                <div class="content-top">
+                                    <div class="content-detail">
+                                        <img src="images/profile.png" alt="profile">
+                                        <div class="from">
+                                            <p class="gra-sec"><span class="gra">Grade 12</span> - <span
+                                                    class="sec">Ritchie</span></p>
+                                            <p class="teach">Lordy Ever Digan</p>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown">
+                                        <a href="#"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <div class="dropdown-content"
+                                            style="right: 0; width: 9.3125rem; top: 0; margin: 0 0.625rem 0 0;">
+                                            <a href="#">Edit</a>
+                                            <a href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-mid">
+                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                </div>
+                                <p class="when">November 30, 2021</p>
+                            </div>
+                            <!--Message-->
+                            <div class="m-content">
+                                <div class="content-top">
+                                    <div class="content-detail">
+                                        <img src="images/profile.png" alt="profile">
+                                        <div class="from">
+                                            <p class="gra-sec"><span class="gra">Grade 12</span> - <span
+                                                    class="sec">Ritchie</span></p>
+                                            <p class="teach">Lordy Ever Digan</p>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown">
+                                        <a href="#"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <div class="dropdown-content"
+                                            style="right: 0; width: 9.3125rem; top: 0; margin: 0 0.625rem 0 0;">
+                                            <a href="#">Edit</a>
+                                            <a href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-mid">
+                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                </div>
+                                <p class="when">November 30, 2021</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Attendance Section-->
+            <div class="td-sections">
+                <div class="text-top">
+                    <p class="text-sections">classes</p>
+                    <div class="code">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <p>create new class</p>
+                    </div>
+                </div>
+
+                <div class="no-class" id="teacher-no-class">
+                    <img src="images/class.png" alt="add class">
+                </div>
+
+                <div class="yes-class" id="teacher-yes-class">
+
+                    <div class="sections">
+
+                        <div class="section-base">
+                            <div class="section no-attendance">
+                                <div class="section-top">
+                                    <div class="dropdown">
+                                        <a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                                        <div class="dropdown-content" style="left: 0; top: 0; width: 9.3125rem;">
+                                            <a href="#">Reset Progress</a>
+                                            <a href="#">Remove from Class</a>
+                                        </div>
+                                    </div>
+                                    <img src="images/profile.png" alt="profile">
+                                </div>
+                                <div class="section-btm">
+                                    <div class="main">
+                                        <p class="main-sec">12-Ritchie</p>
+                                        <p class="main-sub">filipino</p>
+                                        <p class="main-teach">Hector Mira</p>
+                                        <p class="main-code"><strong>Code:</strong> <span>123ABC</span></p>
+                                    </div>
+                                    <div class="attend inactive">
+                                        <p class="attendance"><strong>Attendance for:</strong> <span
+                                                class="date">November
+                                                30,
+                                                2021</span></p>
+                                        <p class="limit"><strong>Time left:</strong> <span class="time">00:27:11</span>
+                                        </p>
+                                    </div>
+                                    <div class="btns">
+                                        <div class="btns-left">
+                                            <a href="class-record.html" class="cancel inactive">cancel attendance</a>
+                                        </div>
+                                        <div class="btns-right">
+                                            <a href="class-record.html" class="view">view</a>
+                                            <a href="#" class="button add">add attendance</a>
+                                            <a class="button edit inactive">edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-base">
+                            <div class="section no-attendance">
+                                <div class="section-top">
+                                    <div class="dropdown">
+                                        <a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                                        <div class="dropdown-content" style="left: 0; top: 0; width: 9.3125rem;">
+                                            <a href="#">Reset Progress</a>
+                                            <a href="#">Remove from Class</a>
+                                        </div>
+                                    </div>
+                                    <img src="images/profile.png" alt="profile">
+                                </div>
+                                <div class="section-btm">
+                                    <div class="main">
+                                        <p class="main-sec">12-Ritchie</p>
+                                        <p class="main-sub">filipino</p>
+                                        <p class="main-teach">Hector Mira</p>
+                                        <p class="main-code"><strong>Code:</strong> <span>123ABC</span></p>
+                                    </div>
+                                    <div class="attend">
+                                        <p class="attendance"><strong>Attendance for:</strong> <span
+                                                class="date">November
+                                                30,
+                                                2021</span></p>
+                                        <p class="limit"><strong>Time left:</strong> <span class="time">00:27:11</span>
+                                        </p>
+                                    </div>
+                                    <div class="btns">
+                                        <div class="btns-left">
+                                            <a href="class-record.html" class="cancel">cancel attendance</a>
+                                        </div>
+                                        <div class="btns-right">
+                                            <a href="class-record.html" class="view">view</a>
+                                            <a href="#" class="button add inactive">add attendance</a>
+                                            <a class="button edit">edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-base">
+                            <div class="section no-attendance">
+                                <div class="section-top">
+                                    <div class="dropdown">
+                                        <a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                                        <div class="dropdown-content" style="left: 0; top: 0; width: 9.3125rem;">
+                                            <a href="#">Reset Progress</a>
+                                            <a href="#">Remove from Class</a>
+                                        </div>
+                                    </div>
+                                    <img src="images/profile.png" alt="profile">
+                                </div>
+                                <div class="section-btm">
+                                    <div class="main">
+                                        <p class="main-sec">12-Ritchie</p>
+                                        <p class="main-sub">filipino</p>
+                                        <p class="main-teach">Hector Mira</p>
+                                        <p class="main-code"><strong>Code:</strong> <span>123ABC</span></p>
+                                    </div>
+                                    <div class="attend">
+                                        <p class="attendance"><strong>Attendance for:</strong> <span
+                                                class="date">November
+                                                30,
+                                                2021</span></p>
+                                        <p class="limit"><strong>Time left:</strong> <span class="time">00:27:11</span>
+                                        </p>
+                                    </div>
+                                    <div class="btns">
+                                        <div class="btns-left">
+                                            <a href="class-record.html" class="cancel">cancel attendance</a>
+                                        </div>
+                                        <div class="btns-right">
+                                            <a href="class-record.html" class="view">view</a>
+                                            <a href="#" class="button add inactive">add attendance</a>
+                                            <a class="button edit">edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-base">
+                            <div class="section no-attendance">
+                                <div class="section-top">
+                                    <div class="dropdown">
+                                        <a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                                        <div class="dropdown-content" style="left: 0; top: 0; width: 9.3125rem;">
+                                            <a href="#">Reset Progress</a>
+                                            <a href="#">Remove from Class</a>
+                                        </div>
+                                    </div>
+                                    <img src="images/profile.png" alt="profile">
+                                </div>
+                                <div class="section-btm">
+                                    <div class="main">
+                                        <p class="main-sec">12-Ritchie</p>
+                                        <p class="main-sub">filipino</p>
+                                        <p class="main-teach">Hector Mira</p>
+                                        <p class="main-code"><strong>Code:</strong> <span>123ABC</span></p>
+                                    </div>
+                                    <div class="attend inactive">
+                                        <p class="attendance"><strong>Attendance for:</strong> <span
+                                                class="date">November
+                                                30,
+                                                2021</span></p>
+                                        <p class="limit"><strong>Time left:</strong> <span class="time">00:27:11</span>
+                                        </p>
+                                    </div>
+                                    <div class="btns">
+                                        <div class="btns-left">
+                                            <a href="class-record.html" class="cancel inactive">cancel attendance</a>
+                                        </div>
+                                        <div class="btns-right">
+                                            <a href="class-record.html" class="view">view</a>
+                                            <a href="#" class="button add">add attendance</a>
+                                            <a class="button edit inactive">edit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="cancel-attend-all">
+                        <p>Cancel today's attendance for All Classes</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+    </div>
+    <!--TEACHER DASHBOARD END-->
+    <script src="scrollreveal.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

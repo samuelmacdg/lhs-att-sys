@@ -1,0 +1,186 @@
+<!--JOHN GLAY C. BUNAO-->
+<!--12-RITHCIE-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- DISPLAYS SITE PROPERLY BASED ON USER'S DEVICE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- LINKS -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="class-record.css">
+    <link rel="icon" type="image/x-icon" href="images/LHS.png">
+    <!-- TITLE -->
+    <title>LHS | Online-Based Classroom Monitoring System</title>
+</head>
+
+<body>
+    <!--MENU OVERLAY START-->
+    <div class="menu-overlay hide-for-desktop" id="main-menu-overlay">
+        <div class="menu-content">
+            <div class="menu-links">
+                <a href="#Home">Home</a>
+                <a href="#">Attendance</a>
+                <a href="#Contact">Contact</a>
+                <a href="#Team">Team</a>
+                <a href="login.html" class="button menu-button">Log In</a>
+                <!--logged in-->
+                <a href="#">Logout</a>
+                <a href="profile.html"><img src="images/profile.png" alt="profile"></a>
+            </div>
+        </div>
+    </div>
+    <!--MENU OVERLAY END-->
+    <!--LOADING START-->
+    <div class="loading-overlay">
+        <div class="loading-background">
+            <div class="sk-fading-circle">
+                <div class="sk-circle1 sk-circle"></div>
+                <div class="sk-circle2 sk-circle"></div>
+                <div class="sk-circle3 sk-circle"></div>
+                <div class="sk-circle4 sk-circle"></div>
+                <div class="sk-circle5 sk-circle"></div>
+                <div class="sk-circle6 sk-circle"></div>
+                <div class="sk-circle7 sk-circle"></div>
+                <div class="sk-circle8 sk-circle"></div>
+                <div class="sk-circle9 sk-circle"></div>
+                <div class="sk-circle10 sk-circle"></div>
+                <div class="sk-circle11 sk-circle"></div>
+                <div class="sk-circle12 sk-circle"></div>
+            </div>
+        </div>
+    </div>
+    <!--LOADING END-->
+    <!--VAVIGATION BAR START-->
+    <header class="header">
+        <nav class="container">
+            <div class="desktop flex flex-jc-sb flex-ai-c">
+                <a href="#" class="nav-logo">
+                    <img src="images/LHS.png" alt="lhs_logo">
+                </a>
+                <div class="nav-links hide-for-mobile">
+                    <a href="index.html#Home">Home</a>
+                    <a href="#">Attendance</a>
+                    <a href="index.html#Contact">Contact</a>
+                    <a href="index.html#Team">Team</a>
+                </div>
+                <div class="nav-profile hide-for-mobile dropdown">
+                    <a href="profile.html"><img src="images/profile.png" alt="profile_picture"></a>
+                    <div class="dropdown-content" style="right: 0; width: 10.625rem;">
+                        <a href="profile.html#Profile">Profile</a>
+                        <a href="profile.html#Change Password">Change Password</a>
+                        <a href="/">Logout</a>
+                    </div>
+                </div>
+                <!--for mobile-->
+                <a href="/" id="btnHamburger" class="nav-toggle hide-for-desktop">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <!--VAVIGATION BAR END-->
+    <!--CLASS RECORD START-->
+    <div class="base container">
+        <section class="class-record desktop">
+            <div class="record-top">
+                <a href="teacher-dashboard.html"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                <p class="class-code">Class Code: <strong>123ABC</strong></p>
+            </div>
+            <h1 class="section">12-ritchie</h1>
+            <p class="info"><span class="subject">Philippine Literature</span> | <span class="teacher">Lordy
+                    Digan</span></p>
+            <div class="head">
+                <div class="left">
+                    <p class="title">Attendance Records of Students</p>
+                </div>
+                <div class="right">
+                    <div class="months dropdown">
+                        <div class="pick month">
+                            <p>month</p>
+                        </div>
+                        <i class="fa fa-caret-down up"  id="m-up" aria-hidden="true"></i>
+                        <div class="dropdown-content">
+                            <a href="#">month</a>
+                            <a href="#">month</a>
+                            <a href="#">month</a>
+                        </div>
+                    </div>
+                    <div class="days dropdown">
+                        <div class="pick day">
+                            <p>00</p>
+                        </div>
+                        <i class="fa fa-caret-down" id="d-up" aria-hidden="true"></i>
+                        <div class="dropdown-content">
+                            <a href="#">00</a>
+                            <a href="#">00</a>
+                            <a href="#">00</a>
+                        </div>
+                    </div>
+                    <div class="years dropdown">
+                        <div class="pick year">
+                            <p>0000</p>
+                        </div>
+                        <i class="fa fa-caret-down up" id="y-up" aria-hidden="true"></i>
+                        <div class="dropdown-content">
+                            <a href="#">0000</a>
+                            <a href="#">0000</a>
+                            <a href="#">0000</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="records">
+                <div class="no-records" id="class-no-records">
+                    <img src="images/add-student.png" alt="no-students">
+                </div>
+                <div class="yes-records" id="class-yes-records">
+
+                    <div class="record">
+                        <div class="record-flex">
+                            <p class="name"><span class="lastname">Bunao</span>, <span class="firstname">John
+                                    Glay</span>
+                            </p>
+                            <p class="time">9:00 <span class="amorpm">am</span></p>
+                            <a href="student-record.html" class="view button">view</a>
+                        </div>
+                    </div>
+
+                    <div class="record">
+                        <div class="record-flex late">
+                            <p class="name"><span class="lastname">Lastname</span>, <span
+                                    class="firstname">Firstname</span>
+                            </p>
+                            <p class="time">10:05 <span class="amorpm">am</span></p>
+                            <a href="student-record.html" class="view button">view</a>
+                        </div>
+                    </div>
+
+                    <div class="record">
+                        <div class="record-flex">
+                            <p class="name"><span class="lastname">Lastname</span>, <span
+                                    class="firstname">Firstname</span>
+                            </p>
+                            <p class="time">9:15 <span class="amorpm">am</span></p>
+                            <a href="student-record.html" class="view button">view</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <a href="#" class="print button">Print</a>
+            <!--CLASS RECORD END-->
+        </section>
+        <script src="scrollreveal.min.js"></script>
+        <script src="script.js"></script>
+    </div>
+</body>
+
+</html>
