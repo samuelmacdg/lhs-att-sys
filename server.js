@@ -385,13 +385,16 @@ app.get('/attendances', (req, res) => {
                 classes.grade as grade,
                 classes.section as section,
                 classes.subject as subject,
+                users.firstname || ' ' || users.lastname as teacher,
                 attendances.fordate as attdate,
-                attendances.expiry as expiry
-                from classes 
+                attendances.expiry as expiry,
+                attendance_entries.time as logtime
+                from class_assignment 
+                left join classes on class_assignment.class = classes.id 
                 left join users on classes.teacher = users.id 
                 left join (select * from attendances where date(fordate) = date('now', 'localtime')) as attendances on attendances.class = classes.id
                 left join attendance_entries on attendances.id = attendance_entries.attendance
-                where classes.teacher = ?;`;
+                where class_assignment.student = ?;`;
 
             const tCommand =
                 `select
