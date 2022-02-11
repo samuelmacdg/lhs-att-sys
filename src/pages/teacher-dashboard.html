@@ -15,11 +15,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="teacher-dashboard.css">
     <link rel="icon" type="image/x-icon" href="images/LHS.png">
+    <script src="./global.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- TITLE -->
     <title>LHS | Online-Based Classroom Monitoring System</title>
 </head>
 
-<body>
+<body onload="tDashboardOnLoad()">
     <!--OVERLAY-1 START-->
     <div class="overlay-1">
         <div class="background"></div>
@@ -195,9 +197,9 @@
                         rows="3"></textarea>
                     <div class="outside">
                         <div class="send-to dropdown">
-                            <p class="to">class</p>
+                            <p id="post_classes_selected" class="to">class</p>
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
-                            <div class="dropdown-content" style="width: 100%; top: 0; left: 0; margin-top: 2.1875rem;">
+                            <div id="post_classes_dropdown" class="dropdown-content" style="width: 100%; top: 0; left: 0; margin-top: 2.1875rem;">
                                 <a href="#">All Classes</a>
                                 <a href="#">12-Ritchie</a>
                                 <a href="#">12-Rossum</a>

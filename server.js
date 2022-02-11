@@ -114,12 +114,12 @@ app.post('/login', (req, res, next) => {
     console.log(req.body);
     passport.authenticate('local', (err, user, info) => {
         console.log(err, user, info);
-        if (info) { return res.send({success: false, message: info.message}); }
+        if (info) { return res.send({ success: false, message: info.message }); }
         if (err) { return next(err); }
-        if (!user) { return res.send({success: false, message: 'User not found.'}); }
+        if (!user) { return res.send({ success: false, message: 'User not found.' }); }
         req.login(user, (err) => {
             if (err) { return next(err); }
-            return res.send({success: true, message: 'Success.'});
+            return res.send({ success: true, message: 'Success.' });
         });
     })(req, res, next);
 });
@@ -228,6 +228,30 @@ app.post('/profile-delete', (req, res) => {
         });
 });
 
+app.post('/newclass', (req, res) => {
+    if (req.isAuthenticated()) {
+        const user = req.user;
+        const reqBody = req.body;
+        if (user.type == 1) {
+            const command = 'insert into classes(teacher, grade, section, subject, code) values(?, ?, ?, ?, ?);';
+            dataDb.run(command, [user.id, reqBody.grade, reqBody.section, reqBody.subject, reqBody.code], err => {
+                if (err) {
+                    return res.send({ success: false, message: err });
+                }
+                else {
+                    return res.send({ success: true, message: 'success' });
+                }
+            });
+        }
+        else {
+            return res.send({ success: false, message: 'invalid user' });
+        }
+    }
+    else {
+        return res.redirect('login.html');
+    }
+});
+
 app.get('/dashboard', (req, res) => {
     console.log(`User authenticated? ${req.isAuthenticated()} ${req.session.user}`);
     if (req.isAuthenticated()) {
@@ -247,39 +271,58 @@ app.post('/checkemail', (req, res) => {
     });
 });
 
+app.post('/newpost', (req, res) => {
+    const requestBody = req.body;
+    const user = req.user;
+    if (req.isAuthenticated()) {
+        const command = "insert into posts(dateposted, expiry, class, message) values(?, ?, ?, ?);";
+        dataDb.run(command, [requestBody.posted, requestBody.expiry, requestBody.classId == 0 ? null : requestBody.classId, requestBody.message], err => {
+            if (err) {
+                return res.send({ success: false, message: err });
+            }
+            else {
+                return res.send({ success: true, message: 'success' });
+            }
+        });
+    }
+    else {
+        return res.redirect('/login');
+    }
+});
+
 app.get('/studentclassdata', (req, res) => {
-    if(req.isAuthenticated()){
+    if (req.isAuthenticated()) {
         const user = req.user;
         const classId = req.query.classId;
 
         let responseObject = {};
         responseObject.student = user;
 
-        if(user.type == 2){ 
+        if (user.type == 2) {
             dataDb.serialize(() => {
                 dataDb
-                .get(
-                    `select classes.id as classid, firstname || ' ' || lastname as teacher, grade, section, subject from classes join users on users.id = classes.teacher where classes.id = ?;`,
-                    [classId],
-                    (err, row) => {
-                        responseObject.class = row;
-                    }
-                )
-                .all(
-                    `select fordate, case when time is null then 'Absent' else 'Present' end as attendance, time from attendances left join (select * from attendance_entries where student = ?) as attendance_entries on attendance_entries.attendance = attendances.id where class = ? order by fordate;`,
-                    [user.id, classId],
-                    (err, rows) => {
-                        responseObject.attendances = rows;
-                        return res.send(responseObject);
-                    }
-                );
+                    .get(
+                        `select classes.id as classid, firstname || ' ' || lastname as teacher, grade, section, subject from classes join users on users.id = classes.teacher where classes.id = ?;`,
+                        [classId],
+                        (err, row) => {
+                            responseObject.class = row;
+                        }
+                    )
+                    .all(
+                        `select fordate, case when time is null then 'Absent' else 'Present' end as attendance, time from attendances left join (select * from attendance_entries where student = ?) as attendance_entries on attendance_entries.attendance = attendances.id where class = ? order by fordate;`,
+                        [user.id, classId],
+                        (err, rows) => {
+                            responseObject.attendances = rows;
+                            return res.send(responseObject);
+                        }
+                    );
             });
         }
-        else{
+        else {
             return res.redirect("/login.html"); //This is temporary; Replace logic for teachers
         }
     }
-    else{
+    else {
         return res.redirect("/login.html");
     }
 });
@@ -290,39 +333,40 @@ app.get('/posts', (req, res) => {
         if (user) {
             const sCommand =
                 `select
-      posts.id as post_id,
-      classes.grade as grade,
-      classes.section as section,
-      (select firstname || ' ' || lastname from users where id = classes.teacher) as teacher,
-      posts.message as message,
-      posts.dateposted as dateposted
-      from posts
-      left join classes on posts.class = classes.id
-      left join class_assignment on class_assignment.class = posts.class
-      left join users on users.id = class_assignment.student
-      where users.id = ?
-      and datetime(posts.expiry) > date('now', 'localtime');`;
+                posts.id as post_id,
+                classes.grade as grade,
+                classes.section as section,
+                (select firstname || ' ' || lastname from users where id = classes.teacher) as teacher,
+                posts.message as message,
+                posts.dateposted as dateposted
+                from posts
+                left join classes on posts.class = classes.id
+                left join class_assignment on class_assignment.class = posts.class
+                left join users on users.id = class_assignment.student
+                where users.id = ?
+                and datetime(posts.expiry) > date('now', 'localtime');`;
             const tCommand =
                 `select
-      posts.id as post_id,
-      classes.grade as grade,
-      classes.section as section,
-      (select firstname || ' ' || lastname from users where id = classes.teacher) as teacher,
-      posts.message as message,
-      posts.dateposted as dateposted
-      from posts
-      left join classes on posts.class = classes.id
-      left join class_assignment on class_assignment.class = posts.class
-      left join users on users.id = class_assignment.student
-      where users.id = ?
-      and datetime(posts.expiry) > date('now', 'localtime');`;
+                posts.id as post_id,
+                classes.grade as grade,
+                classes.section as section,
+                (select firstname || ' ' || lastname from users where id = classes.teacher) as teacher,
+                posts.message as message,
+                posts.dateposted as dateposted
+                from posts
+                left join classes on posts.class = classes.id
+                where classes.teacher = ?
+                and datetime(posts.expiry) > date('now', 'localtime');`;
             dataDb.all(user.type == 1 ? tCommand : sCommand, [user.id], (err, rows) => {
                 console.log(rows);
-                return res.send(JSON.stringify(rows));
+                if (err) {
+                    return res.send({ succes: false, result: [], message: err });
+                }
+                return res.send({ succes: true, result: rows, message: 'success' });
             });
         }
         else {
-            return res.send('invalid user');
+            return res.send({ success: false, result: [], message: 'invalid user' });
         }
     }
     else {
@@ -337,44 +381,39 @@ app.get('/attendances', (req, res) => {
         if (user) {
             const sCommand =
                 `select
-      classes.id as class_id,
-      classes.grade as grade,
-      classes.section as section,
-      classes.subject as subject,
-      users.firstname || ' ' || users.lastname as teacher,
-      attendances.fordate as attdate,
-      attendances.expiry as expiry,
-      attendance_entries.time as logtime
-      from class_assignment 
-      left join classes on class_assignment.class = classes.id 
-      left join users on classes.teacher = users.id 
-      left join (select * from attendances where date(fordate) = date('now', 'localtime')) as attendances on attendances.class = classes.id
-      left join attendance_entries on attendances.id = attendance_entries.attendance
-      where class_assignment.student = ?;`;
+                classes.id as class_id,
+                classes.grade as grade,
+                classes.section as section,
+                classes.subject as subject,
+                attendances.fordate as attdate,
+                attendances.expiry as expiry
+                from classes 
+                left join users on classes.teacher = users.id 
+                left join (select * from attendances where date(fordate) = date('now', 'localtime')) as attendances on attendances.class = classes.id
+                left join attendance_entries on attendances.id = attendance_entries.attendance
+                where classes.teacher = ?;`;
 
             const tCommand =
                 `select
-      classes.id as class_id,
-      classes.grade as grade,
-      classes.section as section,
-      classes.subject as subject,
-      users.firstname || ' ' || users.lastname as teacher,
-      attendances.fordate as attdate,
-      attendances.expiry as expiry,
-      attendance_entries.time as logtime
-      from class_assignment 
-      left join classes on class_assignment.class = classes.id 
-      left join users on classes.teacher = users.id 
-      left join (select * from attendances where date(fordate) = date('now', 'localtime')) as attendances on attendances.class = classes.id
-      left join attendance_entries on attendances.id = attendance_entries.attendance
-      where class_assignment.student = ?;`;
+                classes.id as class_id,
+                classes.grade as grade,
+                classes.section as section,
+                classes.subject as subject,
+                classes.code as code,
+                attendances.fordate as attdate,
+                attendances.expiry as expiry
+                from classes 
+                left join users on classes.teacher = users.id 
+                left join (select * from attendances where date(fordate) = date('now', 'localtime')) as attendances on attendances.class = classes.id
+                left join attendance_entries on attendances.id = attendance_entries.attendance
+                where classes.teacher = ?;`;
             dataDb.all(user.type == 1 ? tCommand : sCommand, [user.id], (err, rows) => {
                 console.log(rows);
-                return res.send(JSON.stringify(rows));
+                return res.send({ success: true, result: rows, message: 'success' });
             });
         }
         else {
-            return res.send('invalid user');
+            return res.send({ success: false, result: [], message: 'invalid user' });
         }
     }
     else {

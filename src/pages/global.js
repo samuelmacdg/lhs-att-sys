@@ -7,7 +7,7 @@ const convertToUXDate = d => {
     return `${mo} ${da}, ${ye}`;
 };
 
-const getRemainingTime = (expiry) => {
+const getRemainingTime = expiry => {
     let secs = parseInt((expiry - new Date()) / 1000);
 
     if (secs < 0)
@@ -20,10 +20,21 @@ const getRemainingTime = (expiry) => {
     return (`${String(hour).padStart(2, '0')}:${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`);
 };
 
-const validateEmail = (email) => {
+const validateEmail = email => {
     return email.match(
         /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
+};
+
+const createClassCode = length => {
+    let result = '';
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() *
+            charactersLength));
+    }
+    return result;
 };
 
 const signUpOnLoad = () => {
@@ -367,23 +378,24 @@ const sDashboardOnLoad = () => {
 
     $(".loading-overlay:first").show();
 
-    $.get("/attendances", (raw_data) => {
-        try {
-            const data = JSON.parse(raw_data);
-            let cardsBuilder = '';
-            const timeredCards = [];
-            if (data.length > 0) {
-                $("#student-no-class").hide();
-                $("#student-yes-class").show();
-            }
-            else {
-                $("#student-no-class").show();
-                $("#student-yes-class").hide();
-            }
-            data.forEach(classData => {
-                const remaining = getRemainingTime(new Date(classData.expiry));
-                const classCardTemplate =
-                    `<div id="class_${classData.class_id}" class="subject-base">
+    $.getJSON("/attendances", (raw_data) => {
+        if (raw_data?.success)
+            try {
+                const data = raw_data?.result;
+                let cardsBuilder = '';
+                const timeredCards = [];
+                if (data.length > 0) {
+                    $("#student-no-class").hide();
+                    $("#student-yes-class").show();
+                }
+                else {
+                    $("#student-no-class").show();
+                    $("#student-yes-class").hide();
+                }
+                data.forEach(classData => {
+                    const remaining = getRemainingTime(new Date(classData.expiry));
+                    const classCardTemplate =
+                        `<div id="class_${classData.class_id}" class="subject-base">
                     <div class="subject no-attendance">
                         <div class="subject-top">
                             <div class="dropdown">
@@ -413,32 +425,34 @@ const sDashboardOnLoad = () => {
                         </div>
                     </div>
                 </div>`;
-                cardsBuilder += classCardTemplate;
-                if (classData.attdate != null) {
-                    timeredCards.push(classData);
-                }
-            });
-            classesContainer.html(cardsBuilder);
-            setInterval(() => {
-                timeredCards.forEach(card => {
-                    const elid = `class_${card.class_id}`;
-                    let remaining = getRemainingTime(new Date(card.expiry));
-                    if (!remaining)
-                        location.reload();
-                    $(`#${elid}`).find("span.time:first").text(remaining ? remaining : "Ended");
+                    cardsBuilder += classCardTemplate;
+                    if (classData.attdate != null) {
+                        timeredCards.push(classData);
+                    }
                 });
-            }, 999);
-            loadStage++;
-            console.log(loadStage);
-            if (loadStage == 2)
-                $(".loading-overlay:first").hide();
-            addCardFunctions();
-        } catch (error) {
-            alert(error);
-        }
+                classesContainer.html(cardsBuilder);
+                setInterval(() => {
+                    timeredCards.forEach(card => {
+                        const elid = `class_${card.class_id}`;
+                        let remaining = getRemainingTime(new Date(card.expiry));
+                        if (!remaining)
+                            location.reload();
+                        $(`#${elid}`).find("span.time:first").text(remaining ? remaining : "Ended");
+                    });
+                }, 999);
+                loadStage++;
+                console.log(loadStage);
+                if (loadStage == 2)
+                    $(".loading-overlay:first").hide();
+                addCardFunctions();
+            } catch (error) {
+                alert(error);
+            }
+        else
+            alert(raw_data?.message);
     });
     $.get("/posts", (raw_data) => {
-        const data = JSON.parse(raw_data);
+        const data = raw_data?.result;
         let cardsBuilder = '';
         if (data.length > 0) {
             $("#student-no-announcement").hide();
@@ -553,16 +567,16 @@ const sRecordOnLoad = () => {
                 const timeIn = att?.attendance == "Absent" ? "--:--" : (new Date(att?.time)).toLocaleDateString('en-US', timeOptions);
                 const amPm = att?.attendance == "Absent" ? "--" : (new Date(att?.time)).getHours > 12 ? "PM" : "AM";
 
-                const presentHTML = 
-                `<div class="record">
+                const presentHTML =
+                    `<div class="record">
                     <div class="record-flex">
                         <p class="date">${forDate}</p>
                         <p class="time">${timeIn} <span class="am-or-pm">${amPm}</span></p>
                         <p class="pres-or-abs">${att?.attendance}</p>
                     </div>
                 </div>`;
-                const absentHTML = 
-                `<div class="record late">
+                const absentHTML =
+                    `<div class="record late">
                     <div class="record-flex">
                         <p class="date">${forDate}</p>
                         <p class="time">${timeIn} <span class="am-or-pm">${amPm}</span></p>
@@ -594,4 +608,215 @@ const sRecordOnLoad = () => {
 
         $(".loading-overlay").hide();
     });
+};
+
+const tDashboardOnLoad = () => {
+    $("div.code").click(() => {
+        $("i.fas.fa.fa-times").click(() => {
+            $("div.overlay-3").hide();
+        });
+        $(".button.back").click(() => {
+            $(".overlay-3").hide();
+        });
+        $(".button.account").click((e) => {
+            e.preventDefault();
+            let gradeLevel = $('input[name="grade-level"').val();
+            let section = $('input[name="section"]').val();
+            let subject = $('input[name="subject"]').val();
+
+            if (gradeLevel == '') {
+                alert('Please input grade level.');
+                return;
+            }
+            if (section == '') {
+                alert('Please input section.')
+                return;
+            }
+            if (subject == '') {
+                alert('Please input subject.');
+                return;
+            }
+
+            let requestBody = {
+                grade: `Grade ${gradeLevel}`,
+                section: section,
+                subject: subject,
+                code: createClassCode(8)
+            };
+
+            $.post('/newclass', requestBody)
+                .done((data) => {
+                    if (data?.success) {
+                        alert('The class has been added. Page will restart.');
+                        location.reload();
+                    }
+                    else {
+                        alert(`An error occured: ${data?.message}`);
+                    }
+                });
+        });
+        $("div.overlay-3").show();
+    });
+
+    $("a.cancel-send").click(() => {
+        $("#message").val("");
+    });
+
+    $("a.button.post-send").click(() => {
+        let message = $("#message").val();
+        let duration = 7;
+        let audience = parseInt($('#post_classes_selected').attr('select_id'));
+        let expiry = new Date();
+        expiry.setDate(new Date().getDate() + duration);
+        let datePosted = new Date();
+
+        let requestBody = {
+            message: message,
+            expiry: expiry.toISOString().replace('Z', ''),
+            classId: audience,
+            posted: datePosted.toISOString().replace('Z', '')
+        };
+
+        $.post('/newpost', requestBody)
+            .done(data => {
+                if (data?.success) {
+                    location.reload();
+                }
+                else{
+                    alert('An error occured: ' + data.message);
+                }
+            });
+    });
+
+    $.getJSON('posts', data => {
+        if (data?.success) {
+            if(data?.result.length > 0){
+                $("#teacher-no-announcement").hide();
+                $("#teacher-yes-announcement").show();
+                $("#teacher-yes-announcement").html("");
+                
+                let postsBuilder = '';
+                data?.result.forEach(post => {
+                    let postId = post.post_id;
+                    let grade = post.grade;
+                    let section = post.section;
+                    let teacher = post.teacher;
+                    let message = post.message;
+                    let posted = convertToUXDate(new Date(post.dateposted));
+                    const postHTML = 
+                    `<div class="m-content">
+                        <div class="content-top">
+                            <div class="content-detail">
+                                <img src="images/profile.png" alt="profile">
+                                <div class="from">
+                                    <p class="gra-sec"><span class="gra">${grade}</span> - <span class="sec">${section}</span></p>
+                                    <p class="teach">${teacher}</p>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <a href="#"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                <div class="dropdown-content" style="right: 0; width: 9.3125rem; top: 0; margin: 0 0.625rem 0 0;">
+                                    <a href="#">Edit</a>
+                                    <a href="#">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-mid">
+                            <p class="message">${message.replace('\n', '<br>')}</p>
+                        </div>
+                        <p class="when">${posted}</p>
+                    </div>`;
+                    postsBuilder += postHTML;
+                });
+                
+                $("#teacher-yes-announcement").html(postsBuilder);
+            }
+            else{
+                $("#teacher-no-announcement").show();
+                $("#teacher-yes-announcement").hide();
+            }
+        }
+    });
+
+    $.getJSON('/attendances', data => {
+        if (data.success) {
+            let classesBuilder = '';
+            $('#post_classes_selected').text("All Classes");
+            $('#post_classes_selected').attr("select_id", 0);
+            let postClassesBuilder = `<a href="#" onclick="$('#post_classes_selected').text('All Classes');$('#post_classes_selected').attr('select_id', 0)">All Classes</a>`;
+            data?.result.forEach((classData) => {
+                let hasActiveAttendance = classData?.attdate != null;
+                let classId = classData?.class_id;
+                let grade = classData?.grade;
+                let section = classData?.section;
+                let subject = classData?.subject;
+                let code = classData?.code;
+                let date = convertToUXDate(new Date(classData?.attdate));
+                let expiry = new Date(classData?.expiry);
+
+                console.log(classData);
+
+                const postClassHTML = `<a href="#" onclick="$('#post_classes_selected').text('${grade + "-" + section}'); $('#post_classes_selected').attr('select_id', ${classId});">${grade + "-" + section}</a>`;
+                postClassesBuilder += postClassHTML;
+                const classHTML =
+                    `<div class="section-base" id="class_${classId}">
+                    <div class="section no-attendance">
+                        <div class="section-top">
+                            <div class="dropdown">
+                                <a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                                <div class="dropdown-content" style="left: 0; top: 0; width: 9.3125rem;">
+                                    <a href="#resetclass-${classId}">Reset Progress</a>
+                                    <a href="#removeclass-${classId}">Remove from Class</a>
+                                </div>
+                            </div>
+                            <img src="images/profile.png" alt="profile">
+                        </div>
+                        <div class="section-btm">
+                            <div class="main">
+                                <p class="main-sec">${grade}-${section}</p>
+                                <p class="main-sub">${subject}</p>
+                                <p class="main-code"><strong>Code:</strong> <span>${code}</span></p>
+                            </div>
+                            <div class="attend ${hasActiveAttendance ? '' : 'inactive'}">
+                                <p class="attendance"><strong>Attendance for:</strong> <span class="date">${date}</span></p>
+                                <p class="limit"><strong>Time left:</strong> <span class="time" id="expiry_${classId}">${convertToUXDate(expiry)}</span>
+                                </p>
+                            </div>
+                            <div class="btns">
+                                <div class="btns-left">
+                                    <a href="class-record.html" class="cancel  ${hasActiveAttendance ? '' : 'inactive'}">cancel attendance</a>
+                                </div>
+                                <div class="btns-right">
+                                    <a href="class-record.html?class=${classId}" class="view">view</a>
+                                    <a href="#attendance-${classId}" class="button add  ${hasActiveAttendance ? 'inactive' : ''}">add attendance</a>
+                                    <a class="button edit  ${hasActiveAttendance ? '' : 'inactive'}">edit</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+                classesBuilder += classHTML;
+                setInterval(() => {
+                    $(`#expiry_${classId}`).text(getRemainingTime(expiry));
+                },
+                    1000);
+            });
+            $("#teacher-no-class").hide();
+            $("#teacher-yes-class").show();
+            $("#teacher-yes-class").children().first().html(classesBuilder);
+            $("#post_classes_dropdown").html(postClassesBuilder);
+            $(".button.add").click(() => {
+                $("i.fas.fa.fa-times").click(() => {
+                    $("div.overlay-4").hide();
+                });
+                $(".button.back").click(() => {
+                    $(".overlay-4").hide();
+                });
+                $(".overlay-4").show();
+            });
+        }
+    })
+        .catch((error) => {
+            console.log(error);
+        });
 };
