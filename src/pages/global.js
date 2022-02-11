@@ -470,7 +470,7 @@ const sDashboardOnLoad = () => {
                     <div class="content-detail">
                         <img src="images/profile.png" alt="profile">
                         <div class="from">
-                            <p class="gra-sec"><span class="gra">${post.grade}</span> - <span class="sec">${post.section}</span></p>
+                            <p class="gra-sec"><span class="gra">${post.grade == null ? "All Grades" : post.grade}</span> - <span class="sec">${post.section == null ? "All Sections" : post.section}</span></p>
                             <p class="teach">${post.teacher}</p>
                         </div>
                     </div>
@@ -611,6 +611,11 @@ const sRecordOnLoad = () => {
 };
 
 const tDashboardOnLoad = () => {
+    const btnPressed = document.createElement('style');
+    btnPressed.type = 'text/css';
+    btnPressed.innerHTML = '.btn-pressed {background-color: #953b39 !important; color: white !important;}';
+    document.getElementsByTagName('head')[0].appendChild(btnPressed);
+
     $("div.code").click(() => {
         $("i.fas.fa.fa-times").click(() => {
             $("div.overlay-3").hide();
@@ -682,19 +687,57 @@ const tDashboardOnLoad = () => {
                 if (data?.success) {
                     location.reload();
                 }
-                else{
+                else {
                     alert('An error occured: ' + data.message);
                 }
             });
     });
 
+    $("a.button[name='day']").removeAttr("href");
+    $("a.button[name='limit']").removeAttr("href");
+    $("a[href='#']").removeAttr("href");
+
+    $("a.button[name='limit']").click(e => {
+        let clickedText = e.target.text;
+        let lim = parseInt(clickedText) * (clickedText.includes("hour") ? 60 : 1);
+        $(".limits").attr("limit", lim);
+        $("a.button[name='limit']").removeClass("btn-pressed");
+        e.target.classList.add("btn-pressed");
+    });
+
+    $("a.button.account").click(e => {
+        let fordate = new Date(new Date($("input[name='date']").val()).getTime() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 23);
+        let expiry = new Date(new Date($("input[name='date']").val()).getTime() - (new Date().getTimezoneOffset() * 60000) + (parseInt($(".limits").attr("limit")) * 60000)).toISOString().substr(0, 23);
+        let classId = location.href.split("#")[1].split("-")[1];
+
+        let requestBody = {
+            dateposted: new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 23),
+            classId: classId,
+            expiry: expiry,
+            fordate: fordate
+        };
+
+        $.post('newattendance', requestBody)
+            .done(data => {
+                if(data?.success){
+                    $(".overlay-4").hide();
+                    $(".loading-overlay").show();
+                    location.reload();
+                }
+                else{
+                    alert("An error occured: " + data?.message);
+                }
+            });
+    });
+
     $.getJSON('posts', data => {
+        console.log(data);
         if (data?.success) {
-            if(data?.result.length > 0){
+            if (data?.result.length > 0) {
                 $("#teacher-no-announcement").hide();
                 $("#teacher-yes-announcement").show();
                 $("#teacher-yes-announcement").html("");
-                
+
                 let postsBuilder = '';
                 data?.result.forEach(post => {
                     let postId = post.post_id;
@@ -703,21 +746,21 @@ const tDashboardOnLoad = () => {
                     let teacher = post.teacher;
                     let message = post.message;
                     let posted = convertToUXDate(new Date(post.dateposted));
-                    const postHTML = 
-                    `<div class="m-content">
+                    const postHTML =
+                        `<div class="m-content">
                         <div class="content-top">
                             <div class="content-detail">
                                 <img src="images/profile.png" alt="profile">
                                 <div class="from">
-                                    <p class="gra-sec"><span class="gra">${grade}</span> - <span class="sec">${section}</span></p>
+                                    <p class="gra-sec"><span class="gra">${grade == null ? "All Grades" : grade}</span> - <span class="sec">${section == null ? "All Sections" : section}</span></p>
                                     <p class="teach">${teacher}</p>
                                 </div>
                             </div>
                             <div class="dropdown">
                                 <a href="#"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
                                 <div class="dropdown-content" style="right: 0; width: 9.3125rem; top: 0; margin: 0 0.625rem 0 0;">
-                                    <a href="#">Edit</a>
-                                    <a href="#">Delete</a>
+                                    <a href="#post-${post.post_id}">Edit</a>
+                                    <a href="deletepost?postId=${post.post_id}">Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -728,17 +771,17 @@ const tDashboardOnLoad = () => {
                     </div>`;
                     postsBuilder += postHTML;
                 });
-                
+
                 $("#teacher-yes-announcement").html(postsBuilder);
             }
-            else{
+            else {
                 $("#teacher-no-announcement").show();
                 $("#teacher-yes-announcement").hide();
             }
         }
     });
 
-    $.getJSON('/attendances', data => {
+    $.getJSON('attendances', data => {
         if (data.success) {
             let classesBuilder = '';
             $('#post_classes_selected').text("All Classes");
@@ -784,7 +827,7 @@ const tDashboardOnLoad = () => {
                             </div>
                             <div class="btns">
                                 <div class="btns-left">
-                                    <a href="class-record.html" class="cancel  ${hasActiveAttendance ? '' : 'inactive'}">cancel attendance</a>
+                                    <a href="cancelattendance?classId=${classId}" class="cancel  ${hasActiveAttendance ? '' : 'inactive'}">cancel attendance</a>
                                 </div>
                                 <div class="btns-right">
                                     <a href="class-record.html?class=${classId}" class="view">view</a>
@@ -806,17 +849,19 @@ const tDashboardOnLoad = () => {
             $("#teacher-yes-class").children().first().html(classesBuilder);
             $("#post_classes_dropdown").html(postClassesBuilder);
             $(".button.add").click(() => {
+                $("i.fas.fa.fa-times").attr("href", "#");
+                $(".button.back").attr("href", "#");
                 $("i.fas.fa.fa-times").click(() => {
                     $("div.overlay-4").hide();
                 });
                 $(".button.back").click(() => {
                     $(".overlay-4").hide();
                 });
+                $("input[name='date']").val(new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 16));
                 $(".overlay-4").show();
             });
         }
-    })
-        .catch((error) => {
-            console.log(error);
-        });
+    });
+
+
 };

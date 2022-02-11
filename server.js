@@ -275,8 +275,8 @@ app.post('/newpost', (req, res) => {
     const requestBody = req.body;
     const user = req.user;
     if (req.isAuthenticated()) {
-        const command = "insert into posts(dateposted, expiry, class, message) values(?, ?, ?, ?);";
-        dataDb.run(command, [requestBody.posted, requestBody.expiry, requestBody.classId == 0 ? null : requestBody.classId, requestBody.message], err => {
+        const command = `insert into posts(dateposted, expiry, ${requestBody.classId == 0 ? 'teacher' : 'class'}, message) values(?, ?, ?, ?);`;
+        dataDb.run(command, [requestBody.posted, requestBody.expiry, requestBody.classId == 0 ? user.id : requestBody.classId, requestBody.message], err => {
             if (err) {
                 return res.send({ success: false, message: err });
             }
@@ -286,6 +286,51 @@ app.post('/newpost', (req, res) => {
         });
     }
     else {
+        return res.redirect('/login');
+    }
+});
+
+app.post('/newattendance', (req, res) => {
+    const requestBody = req.body;
+    const user = req.user;
+    if (req.isAuthenticated()) {
+        const command = `insert into attendances(dateposted, class, expiry, fordate) values(?, ?, ?, ?);`;
+        dataDb.run(command, [requestBody.dateposted, requestBody.classId, requestBody.expiry, requestBody.fordate], err => {
+            if (err) {
+                return res.send({ success: false, message: err });
+            }
+            else {
+                return res.send({ success: true, message: 'success' });
+            }
+        });
+    }
+    else {
+        return res.redirect('/login');
+    }
+});
+
+app.get('/deletepost', (req, res) => {
+    if(req.isAuthenticated()){
+        const postId = req.query.postId;
+        const command = "delete from posts where id = ?;";
+        dataDb.run(command, [postId], err => {
+            return res.redirect('/teacher-dashboard.html');
+        });
+    }
+    else{
+        return res.redirect('/login');
+    }
+});
+
+app.get('/cancelattendance', (req, res) => {
+    if(req.isAuthenticated()){
+        const classId = req.query.classId;
+        const command = "delete from attendances where class = ? and date(fordate) = date('now');";
+        dataDb.run(command, [classId], err => {
+            return res.redirect('/teacher-dashboard.html');
+        });
+    }
+    else{
         return res.redirect('/login');
     }
 });
@@ -336,33 +381,33 @@ app.get('/posts', (req, res) => {
                 posts.id as post_id,
                 classes.grade as grade,
                 classes.section as section,
-                (select firstname || ' ' || lastname from users where id = classes.teacher) as teacher,
+                (select firstname || ' ' || lastname from users where id = case when classes.teacher is null then posts.teacher else classes.teacher end) as teacher,
                 posts.message as message,
                 posts.dateposted as dateposted
                 from posts
                 left join classes on posts.class = classes.id
                 left join class_assignment on class_assignment.class = posts.class
                 left join users on users.id = class_assignment.student
-                where users.id = ?
+                where (users.id = ? or posts.teacher in (select teacher from classes join class_assignment on classes.id = class_assignment.class where class_assignment.student = ?))
                 and datetime(posts.expiry) > date('now', 'localtime');`;
             const tCommand =
                 `select
                 posts.id as post_id,
                 classes.grade as grade,
                 classes.section as section,
-                (select firstname || ' ' || lastname from users where id = classes.teacher) as teacher,
+                (select firstname || ' ' || lastname from users where id = case when classes.teacher is null then posts.teacher else classes.teacher end) as teacher,
                 posts.message as message,
                 posts.dateposted as dateposted
                 from posts
                 left join classes on posts.class = classes.id
-                where classes.teacher = ?
+                where (classes.teacher = ? or posts.teacher = ?)
                 and datetime(posts.expiry) > date('now', 'localtime');`;
-            dataDb.all(user.type == 1 ? tCommand : sCommand, [user.id], (err, rows) => {
+            dataDb.all(user.type == 1 ? tCommand : sCommand, [user.id, user.id], (err, rows) => {
                 console.log(rows);
                 if (err) {
-                    return res.send({ succes: false, result: [], message: err });
+                    return res.send({ success: false, result: [], message: err });
                 }
-                return res.send({ succes: true, result: rows, message: 'success' });
+                return res.send({ success: true, result: rows, message: 'success' });
             });
         }
         else {
