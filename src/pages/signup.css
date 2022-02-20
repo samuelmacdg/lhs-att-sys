@@ -387,7 +387,7 @@ textarea {
     padding: 0;
 }
 
-.sign-form .email.error::after {
+.sign-form .email::after {
     content: "⊘ That email is taken. Try another.";
     display: block;
     font-size: 0.6875rem;
@@ -395,7 +395,7 @@ textarea {
     margin-top: 4px;
 }
 
-.sign-form .invalid.error::after {
+.sign-form .invalid::after {
     content: "⊘ Please use a valid email address.";
     display: block;
     font-size: 0.6875rem;
@@ -403,7 +403,7 @@ textarea {
     margin-top: 4px;
 }
 
-.sign-form .new.error::after {
+.sign-form .new::after {
     content: "⊘ Use 8 characters or more for your password.";
     display: block;
     font-size: 0.6875rem;
@@ -411,7 +411,7 @@ textarea {
     margin-top: 4px;
 }
 
-.sign-form .confirm.error::after {
+.sign-form .confirm::after {
     display: none;
     content: "⊘ Those passwords didn’t match. Try again.";
     display: block;

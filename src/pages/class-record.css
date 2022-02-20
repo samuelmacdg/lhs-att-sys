@@ -538,8 +538,13 @@ textarea {
     padding: 1.5625rem;
 }
 
-.no-records {
+.yes-records {
     /* display: none; */
+    margin: 0;
+}
+
+.no-records {
+    display: none;
     width: auto;
 }
 
@@ -555,10 +560,6 @@ textarea {
 .no-records img {
     transform: translateX(41%);
     width: 54.8%;
-}
-
-.yes-records {
-    display: none;
 }
 
 .records p {
@@ -586,7 +587,7 @@ textarea {
     margin-top: 0.625rem;
 }
 
-.late .time {
+.late p {
     color: #e40613;
 }
 
@@ -611,12 +612,16 @@ textarea {
 }
 
 .view:hover {
-    font-weight: 700;
     color: #953b39;
 }
 
-.print {
-    float: right;
+.btn-bttm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-bttm a {
     padding: 0.5rem 0.8125rem;
     border: #953b39 solid 0.125rem;
     border-radius: 0.3125rem;
@@ -625,7 +630,7 @@ textarea {
     margin: 1.5625rem 0 1.5625rem 0;
 }
 
-.print:hover {
+.print:hover, .download:hover {
     background-color: white;
     color: #953b39;
 }
@@ -740,8 +745,8 @@ textarea {
         color: #953b39;
     }
 
-    .print {
-        padding: 0.5rem 2.125rem;
+    .btn-bttm a {
+        padding: 0.5rem 1.5rem;
         font-size: 1.25rem;
         margin: 1.5625rem 0 6.25rem 0;
     }

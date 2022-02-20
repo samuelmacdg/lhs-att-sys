@@ -64,16 +64,53 @@
         </div>
     </div>
     <!--OVERLAY-2 END-->
+    <!--OVERLAY-3 START-->
+    <div class="overlay-3" id="profile-overlay-1">
+        <div class="background"></div>
+        <div class="content">
+            <div class="overlay-text">
+                <div class="overlay-top">
+                    <p class="title">Delete Class</p>
+                    <i class="fas fa fa-times"></i>
+                </div>
+                <p class="reminder">You will no longer have access to this class. <strong>You can't undo this action.</strong>  Are you sure you can to continue?</p>
+            </div>
+            <div class="overlay-btn">
+                <a href="#" class="button back">Cancel</a>
+                <a href="#" class="button account">Delete Class</a>
+            </div>
+        </div>
+    </div>
+    <!--OVERLAY-3 END-->
+    <!--OVERLAY-4 START-->
+    <div class="overlay-4" id="profile-overlay-1">
+        <div class="background"></div>
+        <div class="content">
+            <div class="overlay-text">
+                <div class="overlay-top">
+                    <p class="title">Restore Class</p>
+                    <i class="fas fa fa-times"></i>
+                </div>
+                <p class="reminder">You and your students will be able to interact with this class again. The class will be shown in "Classes" section. Are you sure you can to continue?</p>
+            </div>
+            <div class="overlay-btn">
+                <a href="#" class="button back">Cancel</a>
+                <a href="#" class="button account">Restore Class</a>
+            </div>
+        </div>
+    </div>
+    <!--OVERLAY-4 END-->
     <!--MENU OVERLAY START-->
     <div class="menu-overlay hide-for-desktop" id="profile-menu-overlay">
         <div class="menu-content">
             <div class="menu-links">
-                <a href="#Home">Home</a>
+                <a href="index.html#Home">Home</a>
                 <a href="#">Attendance</a>
-                <a href="#Contact">Contact</a>
-                <a href="#Team">Team</a>
+                <a href="index.html#Contact">Contact</a>
+                <a href="index.html#Team">Team</a>
                 <a href="login.html" class="button menu-button">Log In</a>
                 <!--logged in-->
+                <a href="#Archived">Archived Classes</a>
                 <a href="#">Logout</a>
                 <a href="profile.html"><img src="images/profile.png" alt="profile"></a>
             </div>
@@ -118,6 +155,7 @@
                     <div class="dropdown-content" style="right: 0; width: 10.625rem;">
                         <a href="#Profile">Profile</a>
                         <a href="#Change Password">Change Password</a>
+                        <a href="#Archived">Archived Classes</a>
                         <a href="/">Logout</a>
                     </div>
                 </div>
@@ -163,15 +201,15 @@
                     <div class="passwords">
                         <div class="new-pass">
                             <label for="newpassword">New Password</label>
-                            <input class="border-error" type="password" id="newpassword" name="newpassword"
+                            <input class="no-border-error" type="password" id="newpassword" name="newpassword"
                                 placeholder="New Password" required>
-                            <div class="new"></div>
+                            <div class="new no-error"></div>
                         </div>
                         <div class="confirm-pass top">
                             <label for="confirmnewpassword">Confirm New Password</label>
-                            <input class="border-error" type="password" id="confirmpassword" name="confirmnewpassword"
-                                placeholder="Confirm New Password" required>
-                            <div class="confirm"></div>
+                            <input class="no-border-error" type="password" id="confirmpassword"
+                                name="confirmnewpassword" placeholder="Confirm New Password" required>
+                            <div class="confirm no-error"></div>
                         </div>
                     </div>
                 </div>
@@ -181,6 +219,128 @@
                 </div>
             </form>
         </section>
+        <!--ARCHIVED SECTION START-->
+        <div class="td-sections" id="Archived">
+            <p class="text-sections">archived classes</p>
+
+            <div class="no-class" id="teacher-no-class">
+                <img src="images/archive.png" alt="add class">
+            </div>
+
+            <div class="yes-class" id="teacher-yes-class">
+
+                <div class="sections">
+
+                    <div class="section-base">
+                        <div class="section no-attendance">
+                            <div class="section-top">
+                                <div class="dropdown">
+                                    <a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                                    <div class="dropdown-content" style="left: 0; top: 0; width: 9.3125rem;">
+                                        <a href="#">Restore Class</a>
+                                        <a href="#">Delete Class</a>
+                                    </div>
+                                </div>
+                                <img src="images/profile.png" alt="profile">
+                                <p class="quarter" id="quarter"><span id="first-q">First</span> Quarter</p>
+                            </div>
+                            <div class="section-btm">
+                                <div class="main">
+                                    <p class="main-sec">11-Pascal</p>
+                                    <p class="main-sub">practical research 2</p>
+                                    <p class="main-teach">Mamerto Goneda</p>
+                                    <p class="main-code"><strong>Code:</strong> <span>HMF483</span></p>
+                                </div>
+                                <div class="for-switch none">
+                                    <div class="switch-tools">
+                                        <p class="synchronous">synchronous class</p>
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="attend inactive">
+                                    <p class="attendance"><strong>Attendance for:</strong> <span class="date">November
+                                            30,
+                                            2021</span></p>
+                                    <p class="limit"><strong>Time left:</strong> <span class="time">00:27:11</span>
+                                    </p>
+                                    <p class="attend-code asynchronous"><strong>Code:</strong> <span>OEN947</span>
+                                    </p>
+                                </div>
+                                <div class="btns">
+                                    <div class="btns-left">
+                                        <a href="class-record.html" class="cancel inactive">cancel attendance</a>
+                                    </div>
+                                    <div class="btns-right">
+                                        <a href="class-record.html" class="view">view</a>
+                                        <a href="#" class="button add inactive">add attendance</a>
+                                        <a class="button edit inactive">edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-base">
+                        <div class="section no-attendance">
+                            <div class="section-top">
+                                <div class="dropdown">
+                                    <a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                                    <div class="dropdown-content" style="left: 0; top: 0; width: 9.3125rem;">
+                                        <a href="#">Restore Class</a>
+                                        <a href="#">Delete Class</a>
+                                    </div>
+                                </div>
+                                <img src="images/profile.png" alt="profile">
+                                <p class="quarter" id="quarter"><span id="first-q">First</span> Quarter</p>
+                            </div>
+                            <div class="section-btm">
+                                <div class="main">
+                                    <p class="main-sec">11-Thompson</p>
+                                    <p class="main-sub">java programming</p>
+                                    <p class="main-teach">Mamerto Goneda</p>
+                                    <p class="main-code"><strong>Code:</strong> <span>KJG938</span></p>
+                                </div>
+                                <div class="for-switch none">
+                                    <div class="switch-tools">
+                                        <p class="synchronous">synchronous class</p>
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="attend inactive">
+                                    <p class="attendance"><strong>Attendance for:</strong> <span class="date">February
+                                            10,
+                                            2022</span></p>
+                                    <p class="limit"><strong>Time left:</strong> <span class="time">00:27:11</span>
+                                    </p>
+                                    <p class="attend-code asynchronous"><strong>Code:</strong> <span>2Y4D8T</span>
+                                    </p>
+                                </div>
+                                <div class="btns">
+                                    <div class="btns-left">
+                                        <a href="class-record.html" class="cancel inactive">cancel attendance</a>
+                                    </div>
+                                    <div class="btns-right">
+                                        <a href="class-record.html" class="view">view</a>
+                                        <a href="#" class="button add inactive">add attendance</a>
+                                        <a class="button edit inactive">edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!--ARCHIVED SECTION END-->
     </div>
     <!--PROFILE PAGE END-->
     <script src="scrollreveal.min.js"></script>

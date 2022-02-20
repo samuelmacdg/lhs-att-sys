@@ -244,6 +244,22 @@ textarea {
     height: 100%;
 }
 
+.overlay-3 {
+    display: none;
+    position: fixed;
+    z-index: 7;
+    width: 100%;
+    height: 100%;
+}
+
+.overlay-4 {
+    display: none;
+    position: fixed;
+    z-index: 7;
+    width: 100%;
+    height: 100%;
+}
+
 .background {
     position: fixed;
     width: 100%;
@@ -800,7 +816,7 @@ textarea {
 
 @media (min-width: 64em) {
     .profile {
-        margin: 11rem auto 6.25rem auto;
+        margin: 11rem auto 3.125rem auto;
         padding: 1.875rem;
         width: 49.375rem;
     }
@@ -898,3 +914,399 @@ textarea {
     }
 }
 /*END PROFILE PAGE*/
+
+/*START ARCHIVED PAGE*/
+
+.td-sections {
+    margin: 1.5625rem auto;
+    background-color: white;
+    border-radius: 0.3125rem;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    padding: 1.5625rem;
+    color: #786d78;
+    min-height: 12.473625rem;
+}
+
+.td-sections .text-sections {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    margin: 0 0 1.5625rem 0;
+}
+
+.yes-class {
+    /* display: none; */
+    margin: 0;
+}
+
+.no-class {
+    display: none;
+    width: auto;
+}
+
+.no-class::after {
+    content: "None of your classes have been archived";
+    display: block;
+    margin: 0;
+    color: #786d78;
+    font-size: 0.6875rem;
+    text-align: center;
+}
+
+.no-class img {
+    transform: translateX(41%);
+    width: 54.8%;
+}
+
+.sections {
+    display: grid;
+    gap: 0.9375rem;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.section-base {
+    height: 100%;
+}
+
+.no-attendance {
+    height: auto;
+}
+
+.section {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    border-radius: 0.1875rem;
+}
+
+.section-top {
+    background-color: #953b39;
+    border-radius: 0.1875rem 0.1875rem 0 0;
+    height: 4.375rem;
+    position: relative;
+}
+
+.section-top i {
+    position: relative;
+    font-size: 0.9375rem;
+    margin: 0.625rem;
+    color: white;
+    top: 0;
+}
+
+.section-top .dropdown-content {
+    margin: 10px 0 0 32px;
+    padding: 0.625rem;
+}
+
+.section-top .dropdown-content a {
+    font-size: 0.6875rem;
+}
+
+.section-top img {
+    position: absolute;
+    height: 5rem;
+    border-radius: 50%;
+    border: #953b39 solid 0.1875rem;
+    right: 0;
+    bottom: -2.5rem;
+    margin: 0 0.9375rem 0 0;
+}
+
+.section .quarter {
+    position: absolute;
+    margin: 0 0 0.625rem 0.9375rem;
+    padding: 0;
+    color: white;
+    font-size: 0.6875rem;
+    bottom: 0;
+    text-transform: capitalize;
+}
+
+.section-btm {
+    height: auto;
+    padding: 0.9375rem;
+}
+
+.main p {
+    margin: 0 0 0.25rem 0;
+    font-size: 0.6875rem;
+}
+
+.main p:last-child {
+    margin: 0;
+}
+
+.main p:first-child {
+    max-width: 65%;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.main-sub {
+    text-transform: capitalize;
+}
+
+.for-switch {
+    margin: 0;
+    padding: 0;
+    width: auto;
+    position: relative;
+}
+
+.switch-tools {
+    position: absolute;
+    right: 0;
+    bottom: -1.8125rem;
+    padding: 0 0 0 0.625rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    background-color: white;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 1.875rem;
+    height: 1.0625rem;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 1.0625rem;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 0.8125rem;
+    width: 0.8125rem;
+    left: 0.125rem;
+    bottom: 0.125rem;
+    background-color: white;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #953b39;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 0.0625rem #953b39;
+}
+
+input:checked + .slider:before {
+    transform: translateX(13px);
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.synchronous {
+    margin: 0;
+    padding: 0;
+    font-size: 0.6875rem;
+    text-transform: capitalize;
+}
+
+.attend {
+    font-size: 0.6875rem;
+}
+
+.attend::before {
+    content: "";
+    background: #d4dbe0;
+    display: block;
+    width: auto;
+    height: 0.0625rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.attendance,
+.limit {
+    margin: 0 0 0.25rem 0;
+}
+
+.attend-code {
+    margin: 0;
+}
+
+.asynchronous,
+.none {
+    display: none;
+}
+
+.btns {
+    margin-top: 0.9375rem;
+    width: auto;
+    text-align: right;
+    text-transform: capitalize;
+    font-size: 0.6875rem;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.view,
+.cancel {
+    color: #786d78;
+    transition: all 300ms ease-in-out;
+}
+
+.view:hover,
+.cancel:hover {
+    font-weight: 700;
+}
+
+.add {
+    padding: 0.1875rem 0.5rem;
+    border-radius: 0.1875rem;
+    border: 0.125rem solid #953b39;
+    margin: 0 0 0 0.625rem;
+}
+
+.add:hover {
+    color: #953b39;
+    background-color: white;
+}
+
+.edit {
+    color: #786d78;
+    background-color: #f2f2f2;
+    padding: 0.1875rem 0.5rem;
+    border-radius: 0.1875rem;
+    border: 0.125rem solid #f2f2f2;
+    margin: 0 0 0 0.625rem;
+    transition: all 300ms ease-in-out;
+}
+
+.edit:hover {
+    color: white;
+    background-color: #953b39;
+    border: #953b39 solid 0.125rem;
+}
+
+.inactive {
+    display: none;
+}
+
+@media (min-width: 38rem) {
+    .td-text p {
+        max-width: 80%;
+    }
+
+    .sections {
+        display: grid;
+        gap: 0.9375rem;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 53.125rem) {
+    .sections {
+        display: grid;
+        gap: 0.9375rem;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 64em) {
+    .td-sections {
+        margin: 3.125rem auto 6.25rem auto;
+        padding: 1.875rem;
+        min-height: 23.162125rem;
+        width: 49.375rem;
+    }
+
+    .td-sections .text-top {
+        margin-bottom: 1.875rem;
+    }
+
+    .td-sections .text-sections {
+        font-size: 1.5625rem;
+    }
+
+    .cancel-attend-all {
+        margin-top: 1.875rem;
+        font-size: 0.875rem;
+    }
+
+    .code p,
+    .cancel-attend-all p {
+        font-size: 0.875rem;
+    }
+
+    .no-class::after {
+        font-size: 0.875rem;
+    }
+
+    .sections {
+        display: grid;
+        gap: 1.875rem;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .section-top {
+        height: 5rem;
+    }
+
+    .section-top i {
+        font-size: 1.25rem;
+    }
+
+    .section-top .dropdown-content {
+        padding: 0.9375rem;
+        margin: 10px 0 0 37px;
+    }
+
+    .section-top .dropdown-content a {
+        font-size: 0.875rem;
+    }
+
+    .section-top img {
+        height: 6.25rem;
+        bottom: -3.125rem;
+    }
+    
+    .section .quarter {
+        font-size: 0.875rem;
+    }
+
+    .main p {
+        margin: 0 0 0.5rem 0;
+        font-size: 0.875rem;
+    }
+
+    .main p:first-child {
+        max-width: 70%;
+        font-size: 1.1875rem;
+    }
+
+    .attend {
+        font-size: 0.875rem;
+    }
+
+    .attendance {
+        margin: 0 0 0.5rem 0;
+    }
+
+    .btns {
+        font-size: 0.875rem;
+    }
+}
+/*END ARCHIVED PAGE*/
