@@ -15,13 +15,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="student-dashboard.css">
     <link rel="icon" type="image/x-icon" href="images/LHS.png">
-    <script src="./global.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- TITLE -->
     <title>LHS | Online-Based Classroom Monitoring System</title>
 </head>
 
-<body onload="sDashboardOnLoad()">
+<body>
     <!--OVERLAY-1 START-->
     <div class="overlay-1">
         <div class="background"></div>
@@ -47,10 +45,10 @@
         <div class="content">
             <div class="overlay-text">
                 <div class="overlay-top">
-                    <p class="title">Class Not Found</p>
+                    <p class="title">Something Went Wrong</p>
                     <i class="fas fa fa-times"></i>
                 </div>
-                <p class="reminder">No class with that class code. Please make sure the code you entered is correct.</p>
+                <p class="reminder">Couldn't join the class. Check the account and please make sure the code you entered is correct, and try again.</p>
             </div>
             <div class="overlay-btn">
                 <a href="#" class="button back">OK</a>
@@ -79,12 +77,13 @@
     <div class="menu-overlay hide-for-desktop" id="main-menu-overlay">
         <div class="menu-content">
             <div class="menu-links">
-                <a href="#Home">Home</a>
+                <a href="index.html#Home">Home</a>
                 <a href="#">Attendance</a>
-                <a href="#Contact">Contact</a>
-                <a href="#Team">Team</a>
+                <a href="index.html#Contact">Contact</a>
+                <a href="index.html#Team">Team</a>
                 <a href="login.html" class="button menu-button">Log In</a>
                 <!--logged in-->
+                <a href="profile.html#Archived">Archived Classes</a>
                 <a href="#">Logout</a>
                 <a href="profile.html"><img src="images/profile.png" alt="profile"></a>
             </div>
@@ -129,6 +128,7 @@
                     <div class="dropdown-content" style="right: 0; width: 10.625rem;">
                         <a href="profile.html#Profile">Profile</a>
                         <a href="profile.html#Change Password">Change Password</a>
+                        <a href="profile.html#Archived">Archived Classes</a>
                         <a href="/">Logout</a>
                     </div>
                 </div>
@@ -169,7 +169,7 @@
                                         <div class="from">
                                             <p class="gra-sec"><span class="gra">Grade 12</span> - <span
                                                     class="sec">Ritchie</span></p>
-                                            <p class="teach">Lordy Ever Digan</p>
+                                            <p class="teach">Mamerto Goneda</p>
                                         </div>
                                     </div>
                                     <div class="dropdown">
@@ -185,7 +185,7 @@
                                     <p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                                         eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                 </div>
-                                <p class="when">December 01, 2021</p>
+                                <p class="when">February 10, 2022</p>
                             </div>
                             <!--Message-->
                             <div class="m-content">
@@ -195,7 +195,7 @@
                                         <div class="from">
                                             <p class="gra-sec"><span class="gra">Grade 12</span> - <span
                                                     class="sec">Ritchie</span></p>
-                                            <p class="teach">Lordy Ever Digan</p>
+                                            <p class="teach">Hector Mira</p>
                                         </div>
                                     </div>
                                     <div class="dropdown">
@@ -211,34 +211,7 @@
                                     <p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                                         eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                 </div>
-                                <p class="when">November 30, 2021</p>
-                            </div>
-
-                            <!--Message-->
-                            <div class="m-content">
-                                <div class="content-top">
-                                    <div class="content-detail">
-                                        <img src="images/profile.png" alt="profile">
-                                        <div class="from">
-                                            <p class="gra-sec"><span class="gra">Grade 12</span> - <span
-                                                    class="sec">Ritchie</span></p>
-                                            <p class="teach">Lordy Ever Digan</p>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown">
-                                        <a href="#"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
-                                        <div class="dropdown-content"
-                                            style="right: 0; width: 9.3125rem; top: 0; margin: 0 0.625rem 0 0;">
-                                            <a href="#">Edit</a>
-                                            <a href="#">Delete</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="content-mid">
-                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                                <p class="when">November 30, 2021</p>
+                                <p class="when">February 10, 2022</p>
                             </div>
 
                             <!--Message-->
@@ -249,7 +222,7 @@
                                         <div class="from">
                                             <p class="gra-sec"><span class="gra">Grade 12</span> - <span
                                                     class="sec">Ritchie</span></p>
-                                            <p class="teach">Lordy Ever Digan</p>
+                                            <p class="teach">Reynard Purisima</p>
                                         </div>
                                     </div>
                                     <div class="dropdown">
@@ -265,7 +238,34 @@
                                     <p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                                         eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                 </div>
-                                <p class="when">November 30, 2021</p>
+                                <p class="when">February 09, 2022</p>
+                            </div>
+
+                            <!--Message-->
+                            <div class="m-content">
+                                <div class="content-top">
+                                    <div class="content-detail">
+                                        <img src="images/profile.png" alt="profile">
+                                        <div class="from">
+                                            <p class="gra-sec"><span class="gra">Grade 12</span> - <span
+                                                    class="sec">Ritchie</span></p>
+                                            <p class="teach">Mamerto Goneda</p>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown">
+                                        <a href="#"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <div class="dropdown-content"
+                                            style="right: 0; width: 9.3125rem; top: 0; margin: 0 0.625rem 0 0;">
+                                            <a href="#">Edit</a>
+                                            <a href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-mid">
+                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                </div>
+                                <p class="when">February 08, 2022</p>
                             </div>
                         </div>
 
@@ -301,12 +301,13 @@
                                         </div>
                                     </div>
                                     <img src="images/profile.png" alt="profile">
+                                    <p class="quarter" id="quarter"><span id="first-q">First</span> Quarter</p>
                                 </div>
                                 <div class="subject-btm">
                                     <div class="main">
-                                        <p class="main-sub">philippine literature</p>
+                                        <p class="main-sub">practical research 2</p>
                                         <p class="main-sec">12-Ritchie</p>
-                                        <p class="main-teach">Lordy Ever Digan</p>
+                                        <p class="main-teach">Mamerto Goneda</p>
                                     </div>
                                     <div class="attend inactive">
                                         <p class="attendance"><strong>Attendance for:</strong> <span
@@ -315,6 +316,13 @@
                                                 2021</span></p>
                                         <p class="limit"><strong>Time left:</strong> <span class="time">00:27:11</span>
                                         </p>
+                                        <div class="synchronous">
+                                            <label for="online-code"><strong>Synchronous Class:</strong></label>
+                                            <br>
+                                            <input type="text" name="online-code" placeholder="Enter the code here..." class="border-error">
+                                            <div class="enter"></div>
+                                            <div class="invalid"></div>
+                                        </div>
                                     </div>
                                     <div class="btns">
                                         <a href="student-record.html" class="view">view</a>
@@ -335,6 +343,7 @@
                                         </div>
                                     </div>
                                     <img src="images/profile.png" alt="profile">
+                                    <p class="quarter" id="quarter"><span id="first-q">First</span> Quarter</p>
                                 </div>
                                 <div class="subject-btm">
                                     <div class="main">
@@ -344,11 +353,16 @@
                                     </div>
                                     <div class="attend">
                                         <p class="attendance"><strong>Attendance for:</strong> <span
-                                                class="date">November
-                                                30,
-                                                2021</span></p>
-                                        <p class="limit"><strong>Time left:</strong> <span class="time">00:27:11</span>
+                                                class="date">February 10, 2022</span></p>
+                                        <p class="limit"><strong>Time left:</strong> <span class="time">00:46:28</span>
                                         </p>
+                                        <div class="synchronous asynchronous">
+                                            <label for="online-code"><strong>Synchronous Class:</strong></label>
+                                            <br>
+                                            <input type="text" name="online-code" placeholder="Enter the code here..." class="border-error">
+                                            <div class="enter"></div>
+                                            <div class="invalid"></div>
+                                        </div>
                                     </div>
                                     <div class="btns">
                                         <a href="student-record.html" class="view">view</a>
@@ -369,20 +383,26 @@
                                         </div>
                                     </div>
                                     <img src="images/profile.png" alt="profile">
+                                    <p class="quarter" id="quarter"><span id="first-q">First</span> Quarter</p>
                                 </div>
                                 <div class="subject-btm">
                                     <div class="main">
-                                        <p class="main-sub">practical research 2</p>
+                                        <p class="main-sub">Physical Education</p>
                                         <p class="main-sec">12-Ritchie</p>
-                                        <p class="main-teach">Mamerto Goneda</p>
+                                        <p class="main-teach">Edel Perez Advincula</p>
                                     </div>
                                     <div class="attend">
                                         <p class="attendance"><strong>Attendance for:</strong> <span
-                                                class="date">November
-                                                30,
-                                                2021</span></p>
-                                        <p class="limit"><strong>Time left:</strong> <span class="time">00:27:11</span>
+                                                class="date">February 10, 2022</span></p>
+                                        <p class="limit"><strong>Time left:</strong> <span class="time">01:00:00</span>
                                         </p>
+                                        <div class="synchronous asynchronous">
+                                            <label for="online-code"><strong>Synchronous Class:</strong></label>
+                                            <br>
+                                            <input type="text" name="online-code" placeholder="Enter the code here..." class="border-error">
+                                            <div class="enter"></div>
+                                            <div class="invalid"></div>
+                                        </div>
                                     </div>
                                     <div class="btns">
                                         <a href="student-record.html" class="view">view</a>
@@ -403,6 +423,7 @@
                                         </div>
                                     </div>
                                     <img src="images/profile.png" alt="profile">
+                                    <p class="quarter" id="quarter"><span id="first-q">First</span> Quarter</p>
                                 </div>
                                 <div class="subject-btm">
                                     <div class="main">
@@ -410,18 +431,63 @@
                                         <p class="main-sec">12-Ritchie</p>
                                         <p class="main-teach">Reynard Purisima</p>
                                     </div>
-                                    <div class="attend inactive">
+                                    <div class="attend">
                                         <p class="attendance"><strong>Attendance for:</strong> <span
-                                                class="date">November
-                                                30,
-                                                2021</span></p>
-                                        <p class="limit"><strong>Time left:</strong> <span class="time">00:27:11</span>
+                                                class="date">February 10, 2022</span></p>
+                                        <p class="limit"><strong>Time left:</strong> <span class="time">00:42:56</span>
                                         </p>
+                                        <div class="synchronous">
+                                            <label for="online-code"><strong>Synchronous Class:</strong></label>
+                                            <br>
+                                            <input type="text" name="online-code" placeholder="Enter the code here..." class="border-error">
+                                            <div class="enter"></div>
+                                            <div class="invalid"></div>
+                                        </div>
+                                    </div>
+                                    <div class="btns">
+                                        <a href="student-record.html" class="view">view</a>
+                                        <a href="#" class="button present">present</a>
+                                        <a href="#" class="button done inactive">done</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="subject-base">
+                            <div class="subject no-attendance">
+                                <div class="subject-top">
+                                    <div class="dropdown">
+                                        <a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                                        <div class="dropdown-content" style="left: 0; top: 0; width: 9.3125rem;">
+                                            <a href="#">Leave Class</a>
+                                        </div>
+                                    </div>
+                                    <img src="images/profile.png" alt="profile">
+                                    <p class="quarter" id="quarter"><span id="first-q">First</span> Quarter</p>
+                                </div>
+                                <div class="subject-btm">
+                                    <div class="main">
+                                        <p class="main-sub">empowerment technology</p>
+                                        <p class="main-sec">12-Ritchie</p>
+                                        <p class="main-teach">Ryan Rojas Ricablanca</p>
+                                    </div>
+                                    <div class="attend">
+                                        <p class="attendance"><strong>Attendance for:</strong> <span
+                                                class="date">February 10, 2022</span></p>
+                                        <p class="limit"><strong>Time left:</strong> <span class="time">00:32:45</span>
+                                        </p>
+                                        <div class="synchronous">
+                                            <label for="online-code"><strong>Synchronous Class:</strong></label>
+                                            <br>
+                                            <input type="text" name="online-code" placeholder="Enter the code here..." class="no-border-error">
+                                            <div class="enter no-error"></div>
+                                            <div class="invalid no-error"></div>
+                                        </div>
                                     </div>
                                     <div class="btns">
                                         <a href="student-record.html" class="view">view</a>
                                         <a href="#" class="button present inactive">present</a>
-                                        <a href="#" class="button done inactive">done</a>
+                                        <a href="#" class="button done">done</a>
                                     </div>
                                 </div>
                             </div>

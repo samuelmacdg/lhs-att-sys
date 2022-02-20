@@ -15,13 +15,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="student-record.css">
     <link rel="icon" type="image/x-icon" href="images/LHS.png">
-    <script src="./global.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- TITLE -->
     <title>LHS | Online-Based Classroom Monitoring System</title>
 </head>
 
-<body onload="sRecordOnLoad()">
+<body>
     <!--OVERLAY START-->
     <div class="overlay" id="student-record-overlay-1">
         <div class="background"></div>
@@ -45,12 +43,13 @@
     <div class="menu-overlay hide-for-desktop" id="student-record-menu-overlay">
         <div class="menu-content">
             <div class="menu-links">
-                <a href="#Home">Home</a>
+                <a href="index.html#Home">Home</a>
                 <a href="#">Attendance</a>
-                <a href="#Contact">Contact</a>
-                <a href="#Team">Team</a>
+                <a href="index.html#Contact">Contact</a>
+                <a href="index.html#Team">Team</a>
                 <a href="login.html" class="button menu-button">Log In</a>
                 <!--logged in-->
+                <a href="profile.html#Archived">Archived Classes</a>
                 <a href="#">Logout</a>
                 <a href="profile.html"><img src="images/profile.png" alt="profile"></a>
             </div>
@@ -95,6 +94,7 @@
                     <div class="dropdown-content" style="right: 0; width: 10.625rem;">
                         <a href="profile.html#Profile">Profile</a>
                         <a href="profile.html#Change Password">Change Password</a>
+                        <a href="profile.html#Archived">Archived Classes</a>
                         <a href="/">Logout</a>
                     </div>
                 </div>
@@ -115,8 +115,8 @@
                 <a href="class-record.html"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
                 <a href="#" class="student-remove">Remove Student</a>
             </div>
-            <h1 class="subject">Philippine Literature</h1>
-            <p class="info"><span class="section">12-Rithcie</span> | <span class="teacher">Lordy Digan</span></p>
+            <h1 class="subject">Practical Research 2</h1>
+            <p class="info"><span class="section">12-Rithcie</span> | <span class="teacher">Mamerto Goneda</span></p>
             <div class="student-info">
                 <div class="student-flex">
                     <img class="student-profile" src="images/profile.png" alt="profile">
@@ -130,13 +130,20 @@
 
             <div class="circles">
                 <div class="left">
-                    <p class="circle number-attend">01</p>
+                    <p class="circle number-attend">05</p>
                     <p class="attend">attendances</p>
                 </div>
                 <div class="right">
-                    <p class="circle number-absen">01</p>
+                    <p class="circle number-absen">03</p>
                     <p class="absen">absences</p>
                 </div>
+            </div>
+
+            <div class="quarters">
+                <a href="#" name="quarter" class="button">First Quarter</a>
+                <a href="#" name="quarter" class="button">Second Quarter</a>
+                <a href="#" name="quarter" class="button">Third Quarter</a>
+                <a href="#" name="quarter" class="button">Fourth Quarter</a>
             </div>
 
             <div class="records">
@@ -146,22 +153,57 @@
                 <div class="yes-records" id="student-yes-records">
                     <div class="record">
                         <div class="record-flex">
-                            <p class="date">november 29, 2021</p>
-                            <p class="time">...</p>
-                            <p class="loading">...</p>
+                            <p class="date">february 10, 2022</p>
+                            <p class="time">9:03 <span class="am-or-pm">am</span></p>
+                            <p class="loading">present</p>
                         </div>
                     </div>
                     <div class="record late">
                         <div class="record-flex">
-                            <p class="date">november 28, 2021</p>
-                            <p class="time">10:15 <span class="am-or-pm">am</span></p>
+                            <p class="date">february 09, 2022</p>
+                            <p class="time">--:-- <span class="am-or-pm">--</span></p>
                             <p class="pres-or-abs">absent</p>
                         </div>
                     </div>
                     <div class="record">
                         <div class="record-flex">
-                            <p class="date">november 27, 2021</p>
-                            <p class="time">9:00 <span class="am-or-pm">am</span></p>
+                            <p class="date">february 08, 2022</p>
+                            <p class="time">9:17 <span class="am-or-pm">am</span></p>
+                            <p class="pres-or-abs">present</p>
+                        </div>
+                    </div>
+                    <div class="record late">
+                        <div class="record-flex">
+                            <p class="date">february 07, 2022</p>
+                            <p class="time">--:-- <span class="am-or-pm">--</span></p>
+                            <p class="pres-or-abs">absent</p>
+                        </div>
+                    </div>
+                    <div class="record">
+                        <div class="record-flex">
+                            <p class="date">february 04, 2022</p>
+                            <p class="time">9:08 <span class="am-or-pm">am</span></p>
+                            <p class="pres-or-abs">present</p>
+                        </div>
+                    </div>
+                    <div class="record">
+                        <div class="record-flex">
+                            <p class="date">february 03, 2022</p>
+                            <p class="time">9:28 <span class="am-or-pm">am</span></p>
+                            <p class="pres-or-abs">present</p>
+                        </div>
+                    </div>
+                    <div class="record late">
+                        <div class="record-flex">
+                            <p class="date">february 02, 2022</p>
+                            <p class="time">--:-- <span class="am-or-pm">--</span></p>
+                            <p class="pres-or-abs">absent</p>
+                        </div>
+                    </div>
+                    <div class="record">
+                        <div class="record-flex">
+                            <p class="date">february 01, 2022</p>
+                            <p class="time">9:11 <span class="am-or-pm">am</span></p>
                             <p class="pres-or-abs">present</p>
                         </div>
                     </div>

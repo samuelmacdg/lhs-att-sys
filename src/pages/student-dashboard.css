@@ -631,12 +631,12 @@ textarea {
 }
 
 .yes-announcement {
-    display: none;
+    /* display: none; */
     margin: 0;
 }
 
 .no-announcement {
-    /* display: none; */
+    display: none;
     width: auto;
     height: 11.3rem;
     top: -50%;
@@ -745,7 +745,8 @@ textarea {
     text-align: right;
 }
 
-.code input {
+.code input,
+.synchronous input {
     width: 100%;
     font-size: 0.6875rem;
     padding: 0.5625rem 0.875rem;
@@ -841,6 +842,16 @@ textarea {
     margin: 0 0.9375rem 0 0;
 }
 
+.subject-top .quarter {
+    position: absolute;
+    margin: 0 0 0.625rem 0.9375rem;
+    padding: 0;
+    color: white;
+    font-size: 0.6875rem;
+    bottom: 0;
+    text-transform: capitalize;
+}
+
 .subject-btm {
     height: auto;
     padding: 0.9375rem;
@@ -885,6 +896,40 @@ textarea {
 
 .limit {
     margin: 0;
+}
+
+.synchronous, .synchronous input {
+    margin: 0.25rem 0 0 0;
+}
+
+.border-error {
+    border: 1px solid #d93025;
+}
+
+.no-border-error {
+    border: none;
+}
+
+.no-error, .asynchronous {
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+
+.enter::after{
+    content: "⊘ Please enter a code.";
+    display: block;
+    color: #d93025;
+    margin-top: 4px;
+    font-size: 0.6875rem;
+}
+
+.invalid::after{
+    content: "⊘ The code you entered is incorrect. Please try again.";
+    display: block;
+    color: #d93025;
+    margin-top: 4px;
+    font-size: 0.6875rem;
 }
 
 .btns {
@@ -1096,6 +1141,10 @@ textarea {
         bottom: -3.125rem;
     }
 
+    .subject-top .quarter {
+        font-size: 0.875rem;
+    }
+
     .main p {
         margin: 0 0 0.5rem 0;
         font-size: 0.875rem;
@@ -1112,6 +1161,17 @@ textarea {
 
     .attendance {
         margin: 0 0 0.5rem 0;
+    }
+
+    .synchronous {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .synchronous input {
+        height: 2.25rem;
+        width: 100%;
+        font-size: 0.875rem;
+        margin: 0.5rem 0 0 0;
     }
 
     .btns {

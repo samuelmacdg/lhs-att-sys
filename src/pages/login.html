@@ -15,13 +15,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="login.css">
     <link rel="icon" type="/image/x-icon" href="images/LHS.png">
-    <script src="./global.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- TITLE -->
     <title>LHS | Online-Based Classroom Monitoring System</title>
 </head>
 
-<body onload="loginOnLoad()">
+<body>
     <!--OVERLAY-1 START-->
     <div class="overlay-1">
         <div class="background"></div>
@@ -68,8 +66,8 @@
                 <form action="login" method="post" class="login-form">
                     <div class="email">
                         <label for="email">Email</label><br>
-                        <input class="border-error" type="text" id="email" name="email" placeholder="Email" required><br>
-                        <div class="invalid"></div>
+                        <input class="no-border-error" type="text" id="email" name="email" placeholder="Email" required><br>
+                        <div class="invalid no-error"></div>
                     </div>
                     <div class="password top">
                         <label class="top" for="password">Password</label><br>

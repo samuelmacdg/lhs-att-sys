@@ -15,28 +15,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="teacher-dashboard.css">
     <link rel="icon" type="image/x-icon" href="images/LHS.png">
-    <script src="./global.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- TITLE -->
     <title>LHS | Online-Based Classroom Monitoring System</title>
 </head>
 
-<body onload="tDashboardOnLoad()">
+<body>
     <!--OVERLAY-1 START-->
     <div class="overlay-1">
         <div class="background"></div>
         <div class="content">
             <div class="overlay-text">
                 <div class="overlay-top">
-                    <p class="title">Remove from Class</p>
+                    <p class="title">Archive Class</p>
                     <i class="fas fa fa-times"></i>
                 </div>
-                <p class="reminder">You are about to remove this class from your dashboard. Are you sure you
-                    want to continue?</p>
+                <p class="reminder">Archiving a class causes it to be archived for all participants. Archived classes
+                    can't be modified by teachers or students unless they are restored.</p>
             </div>
             <div class="overlay-btn">
                 <a href="#" class="button back">Cancel</a>
-                <a href="#" class="button account">Continue</a>
+                <a href="#" class="button account">Archive</a>
             </div>
         </div>
     </div>
@@ -45,17 +43,25 @@
     <div class="overlay-2">
         <div class="background"></div>
         <div class="content">
-            <div class="overlay-text">
-                <div class="overlay-top">
-                    <p class="title">Reset Progress</p>
-                    <i class="fas fa fa-times"></i>
+            <div class="overlay-top">
+                <p class="title">Edit Class</p>
+                <i class="fas fa fa-times"></i>
+            </div>
+            <div class="inputs">
+                <input type="number" min="1" max="12" name="grade-level" placeholder="Grade level" required>
+                <input type="text" name="section" placeholder="Section" required>
+                <input type="text" name="subject" placeholder="Subject" required>
+                <label for="quarter">Quarter</label>
+                <div class="grading">
+                    <a href="#" name="quarter" class="button">First</a>
+                    <a href="#" name="quarter" class="button">Second</a>
+                    <a href="#" name="quarter" class="button">Third</a>
+                    <a href="#" name="quarter" class="button">Fourth</a>
                 </div>
-                <p class="reminder">You are about to remove all progress on this class. Attendances will
-                    reset to zero. Are you sure you want to continue?</p>
             </div>
             <div class="overlay-btn">
                 <a href="#" class="button back">Cancel</a>
-                <a href="#" class="button account">Reset Progress</a>
+                <a href="#" class="button account">Save Changes</a>
             </div>
         </div>
     </div>
@@ -72,6 +78,13 @@
                 <input type="number" min="1" max="12" name="grade-level" placeholder="Grade level" required>
                 <input type="text" name="section" placeholder="Section" required>
                 <input type="text" name="subject" placeholder="Subject" required>
+                <label for="quarter">Quarter</label>
+                <div class="grading">
+                    <a href="#" name="quarter" class="button">First</a>
+                    <a href="#" name="quarter" class="button">Second</a>
+                    <a href="#" name="quarter" class="button">Third</a>
+                    <a href="#" name="quarter" class="button">Fourth</a>
+                </div>
             </div>
             <div class="overlay-btn">
                 <a href="#" class="button back">Cancel</a>
@@ -89,7 +102,8 @@
                 <i class="fas fa fa-times"></i>
             </div>
             <div class="inputs">
-                <input type="datetime-local" name="date" placeholder="Date" required>
+                <input type="date" name="date" placeholder="Date" required>
+                <input type="time" name="time" placeholder="Time" required>
                 <label for="day">Repeat</label>
                 <div class="days">
                     <a href="#" name="day" class="button">Mon</a>
@@ -117,12 +131,13 @@
     <div class="menu-overlay hide-for-desktop" id="main-menu-overlay">
         <div class="menu-content">
             <div class="menu-links">
-                <a href="#Home">Home</a>
+                <a href="index.html#Home">Home</a>
                 <a href="#">Attendance</a>
-                <a href="#Contact">Contact</a>
-                <a href="#Team">Team</a>
+                <a href="index.html#Contact">Contact</a>
+                <a href="index.html#Team">Team</a>
                 <a href="login.html" class="button menu-button">Log In</a>
                 <!--logged in-->
+                <a href="profile.html#Archived">Archived Classes</a>
                 <a href="#">Logout</a>
                 <a href="profile.html"><img src="images/profile.png" alt="profile"></a>
             </div>
@@ -167,6 +182,7 @@
                     <div class="dropdown-content" style="right: 0; width: 10.625rem;">
                         <a href="profile.html#Profile">Profile</a>
                         <a href="profile.html#Change Password">Change Password</a>
+                        <a href="profile.html#Archived">Archived Classes</a>
                         <a href="/">Logout</a>
                     </div>
                 </div>
@@ -197,9 +213,9 @@
                         rows="3"></textarea>
                     <div class="outside">
                         <div class="send-to dropdown">
-                            <p id="post_classes_selected" class="to">class</p>
+                            <p class="to">class</p>
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
-                            <div id="post_classes_dropdown" class="dropdown-content" style="width: 100%; top: 0; left: 0; margin-top: 2.1875rem;">
+                            <div class="dropdown-content" style="width: 100%; top: 0; left: 0; margin-top: 2.1875rem;">
                                 <a href="#">All Classes</a>
                                 <a href="#">12-Ritchie</a>
                                 <a href="#">12-Rossum</a>
@@ -225,7 +241,7 @@
                                         <div class="from">
                                             <p class="gra-sec"><span class="gra">Grade 12</span> - <span
                                                     class="sec">Ritchie</span></p>
-                                            <p class="teach">Lordy Ever Digan</p>
+                                            <p class="teach">Mamerto Goneda</p>
                                         </div>
                                     </div>
                                     <div class="dropdown">
@@ -241,7 +257,59 @@
                                     <p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                                         eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                 </div>
-                                <p class="when">December 01, 2021</p>
+                                <p class="when">February 10, 2022</p>
+                            </div>
+                            <!--Message-->
+                            <div class="m-content">
+                                <div class="content-top">
+                                    <div class="content-detail">
+                                        <img src="images/profile.png" alt="profile">
+                                        <div class="from">
+                                            <p class="gra-sec"><span class="gra">Grade 12</span> - <span
+                                                    class="sec">Rossum</span></p>
+                                            <p class="teach">Mamerto Goneda</p>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown">
+                                        <a href="#"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <div class="dropdown-content"
+                                            style="right: 0; width: 9.3125rem; top: 0; margin: 0 0.625rem 0 0;">
+                                            <a href="#">Edit</a>
+                                            <a href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-mid">
+                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                </div>
+                                <p class="when">February 10, 2022</p>
+                            </div>
+                            <!--Message-->
+                            <div class="m-content">
+                                <div class="content-top">
+                                    <div class="content-detail">
+                                        <img src="images/profile.png" alt="profile">
+                                        <div class="from">
+                                            <p class="gra-sec"><span class="gra">Grade 12</span> - <span
+                                                    class="sec">Pixar</span></p>
+                                            <p class="teach">Mamerto Goneda</p>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown">
+                                        <a href="#"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                                        <div class="dropdown-content"
+                                            style="right: 0; width: 9.3125rem; top: 0; margin: 0 0.625rem 0 0;">
+                                            <a href="#">Edit</a>
+                                            <a href="#">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="content-mid">
+                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                </div>
+                                <p class="when">February 09, 2022</p>
                             </div>
                             <!--Message-->
                             <div class="m-content">
@@ -251,7 +319,7 @@
                                         <div class="from">
                                             <p class="gra-sec"><span class="gra">Grade 12</span> - <span
                                                     class="sec">Ritchie</span></p>
-                                            <p class="teach">Lordy Ever Digan</p>
+                                            <p class="teach">Mamerto Goneda</p>
                                         </div>
                                     </div>
                                     <div class="dropdown">
@@ -267,59 +335,7 @@
                                     <p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                                         eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                 </div>
-                                <p class="when">November 30, 2021</p>
-                            </div>
-                            <!--Message-->
-                            <div class="m-content">
-                                <div class="content-top">
-                                    <div class="content-detail">
-                                        <img src="images/profile.png" alt="profile">
-                                        <div class="from">
-                                            <p class="gra-sec"><span class="gra">Grade 12</span> - <span
-                                                    class="sec">Ritchie</span></p>
-                                            <p class="teach">Lordy Ever Digan</p>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown">
-                                        <a href="#"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
-                                        <div class="dropdown-content"
-                                            style="right: 0; width: 9.3125rem; top: 0; margin: 0 0.625rem 0 0;">
-                                            <a href="#">Edit</a>
-                                            <a href="#">Delete</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="content-mid">
-                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                                <p class="when">November 30, 2021</p>
-                            </div>
-                            <!--Message-->
-                            <div class="m-content">
-                                <div class="content-top">
-                                    <div class="content-detail">
-                                        <img src="images/profile.png" alt="profile">
-                                        <div class="from">
-                                            <p class="gra-sec"><span class="gra">Grade 12</span> - <span
-                                                    class="sec">Ritchie</span></p>
-                                            <p class="teach">Lordy Ever Digan</p>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown">
-                                        <a href="#"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
-                                        <div class="dropdown-content"
-                                            style="right: 0; width: 9.3125rem; top: 0; margin: 0 0.625rem 0 0;">
-                                            <a href="#">Edit</a>
-                                            <a href="#">Delete</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="content-mid">
-                                    <p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                                <p class="when">November 30, 2021</p>
+                                <p class="when">February 08, 2022</p>
                             </div>
                         </div>
                     </div>
@@ -349,18 +365,28 @@
                                     <div class="dropdown">
                                         <a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
                                         <div class="dropdown-content" style="left: 0; top: 0; width: 9.3125rem;">
-                                            <a href="#">Reset Progress</a>
-                                            <a href="#">Remove from Class</a>
+                                            <a href="#">Edit Class</a>
+                                            <a href="#">Archive Class</a>
                                         </div>
                                     </div>
                                     <img src="images/profile.png" alt="profile">
+                                    <p class="quarter" id="quarter"><span id="first-q">First</span> Quarter</p>
                                 </div>
                                 <div class="section-btm">
                                     <div class="main">
                                         <p class="main-sec">12-Ritchie</p>
-                                        <p class="main-sub">filipino</p>
-                                        <p class="main-teach">Hector Mira</p>
+                                        <p class="main-sub">practical research 2</p>
+                                        <p class="main-teach">Mamerto Goneda</p>
                                         <p class="main-code"><strong>Code:</strong> <span>123ABC</span></p>
+                                    </div>
+                                    <div class="for-switch none">
+                                        <div class="switch-tools">
+                                            <p class="synchronous">synchronous class</p>
+                                            <label class="switch">
+                                                <input type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
                                     </div>
                                     <div class="attend inactive">
                                         <p class="attendance"><strong>Attendance for:</strong> <span
@@ -368,6 +394,8 @@
                                                 30,
                                                 2021</span></p>
                                         <p class="limit"><strong>Time left:</strong> <span class="time">00:27:11</span>
+                                        </p>
+                                        <p class="attend-code asynchronous"><strong>Code:</strong> <span>7E9Q3B</span>
                                         </p>
                                     </div>
                                     <div class="btns">
@@ -390,25 +418,35 @@
                                     <div class="dropdown">
                                         <a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
                                         <div class="dropdown-content" style="left: 0; top: 0; width: 9.3125rem;">
-                                            <a href="#">Reset Progress</a>
-                                            <a href="#">Remove from Class</a>
+                                            <a href="#">Edit Class</a>
+                                            <a href="#">Archive Class</a>
                                         </div>
                                     </div>
                                     <img src="images/profile.png" alt="profile">
+                                    <p class="quarter" id="quarter"><span id="first-q">First</span> Quarter</p>
                                 </div>
                                 <div class="section-btm">
                                     <div class="main">
-                                        <p class="main-sec">12-Ritchie</p>
-                                        <p class="main-sub">filipino</p>
-                                        <p class="main-teach">Hector Mira</p>
-                                        <p class="main-code"><strong>Code:</strong> <span>123ABC</span></p>
+                                        <p class="main-sec">12-Rossum</p>
+                                        <p class="main-sub">java programming</p>
+                                        <p class="main-teach">Mamerto Goneda</p>
+                                        <p class="main-code"><strong>Code:</strong> <span>ABC123</span></p>
+                                    </div>
+                                    <div class="for-switch">
+                                        <div class="switch-tools">
+                                            <p class="synchronous">synchronous class</p>
+                                            <label class="switch">
+                                                <input type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
                                     </div>
                                     <div class="attend">
                                         <p class="attendance"><strong>Attendance for:</strong> <span
-                                                class="date">November
-                                                30,
-                                                2021</span></p>
+                                                class="date">February 10, 2022</span></p>
                                         <p class="limit"><strong>Time left:</strong> <span class="time">00:27:11</span>
+                                        </p>
+                                        <p class="attend-code asynchronous"><strong>Code:</strong> <span>2Y4D8T</span>
                                         </p>
                                     </div>
                                     <div class="btns">
@@ -431,26 +469,35 @@
                                     <div class="dropdown">
                                         <a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
                                         <div class="dropdown-content" style="left: 0; top: 0; width: 9.3125rem;">
-                                            <a href="#">Reset Progress</a>
-                                            <a href="#">Remove from Class</a>
+                                            <a href="#">Edit Class</a>
+                                            <a href="#">Archive Class</a>
                                         </div>
                                     </div>
                                     <img src="images/profile.png" alt="profile">
+                                    <p class="quarter" id="quarter"><span id="first-q">First</span> Quarter</p>
                                 </div>
                                 <div class="section-btm">
                                     <div class="main">
-                                        <p class="main-sec">12-Ritchie</p>
-                                        <p class="main-sub">filipino</p>
-                                        <p class="main-teach">Hector Mira</p>
-                                        <p class="main-code"><strong>Code:</strong> <span>123ABC</span></p>
+                                        <p class="main-sec">12-Pixar</p>
+                                        <p class="main-sub">practical research 2</p>
+                                        <p class="main-teach">Mamerto Goneda</p>
+                                        <p class="main-code"><strong>Class Code:</strong> <span>A1B2C3</span></p>
+                                    </div>
+                                    <div class="for-switch">
+                                        <div class="switch-tools">
+                                            <p class="synchronous">synchronous class</p>
+                                            <label class="switch">
+                                                <input type="checkbox" checked>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
                                     </div>
                                     <div class="attend">
                                         <p class="attendance"><strong>Attendance for:</strong> <span
-                                                class="date">November
-                                                30,
-                                                2021</span></p>
-                                        <p class="limit"><strong>Time left:</strong> <span class="time">00:27:11</span>
+                                                class="date">February 10, 2022</span></p>
+                                        <p class="limit"><strong>Time left:</strong> <span class="time">01:00:00</span>
                                         </p>
+                                        <p class="attend-code"><strong>Code:</strong> <span>0Y2G1H</span></p>
                                     </div>
                                     <div class="btns">
                                         <div class="btns-left">
@@ -460,47 +507,6 @@
                                             <a href="class-record.html" class="view">view</a>
                                             <a href="#" class="button add inactive">add attendance</a>
                                             <a class="button edit">edit</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="section-base">
-                            <div class="section no-attendance">
-                                <div class="section-top">
-                                    <div class="dropdown">
-                                        <a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a>
-                                        <div class="dropdown-content" style="left: 0; top: 0; width: 9.3125rem;">
-                                            <a href="#">Reset Progress</a>
-                                            <a href="#">Remove from Class</a>
-                                        </div>
-                                    </div>
-                                    <img src="images/profile.png" alt="profile">
-                                </div>
-                                <div class="section-btm">
-                                    <div class="main">
-                                        <p class="main-sec">12-Ritchie</p>
-                                        <p class="main-sub">filipino</p>
-                                        <p class="main-teach">Hector Mira</p>
-                                        <p class="main-code"><strong>Code:</strong> <span>123ABC</span></p>
-                                    </div>
-                                    <div class="attend inactive">
-                                        <p class="attendance"><strong>Attendance for:</strong> <span
-                                                class="date">November
-                                                30,
-                                                2021</span></p>
-                                        <p class="limit"><strong>Time left:</strong> <span class="time">00:27:11</span>
-                                        </p>
-                                    </div>
-                                    <div class="btns">
-                                        <div class="btns-left">
-                                            <a href="class-record.html" class="cancel inactive">cancel attendance</a>
-                                        </div>
-                                        <div class="btns-right">
-                                            <a href="class-record.html" class="view">view</a>
-                                            <a href="#" class="button add">add attendance</a>
-                                            <a class="button edit inactive">edit</a>
                                         </div>
                                     </div>
                                 </div>
