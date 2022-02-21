@@ -858,8 +858,6 @@ textarea {
 }
 
 .footer .social {
-    text-align: left;
-    width: 10.875rem;
     margin: 0.9375rem auto;
 }
 
@@ -868,7 +866,12 @@ textarea {
     margin: 0;
 }
 
+.social p {
+    width: 12rem;
+}
+
 .footer p {
+    text-align: center;
     margin: 0;
 }
 
@@ -887,8 +890,8 @@ textarea {
 .number,
 .email {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 5px;
     margin: 0;
 }
 
@@ -914,12 +917,15 @@ textarea {
         font-size: 1.125rem;
     }
 
+    .social p {
+        width: 18rem;
+    }
+
     .footer .wtru {
         font-size: 1.25rem;
     }
 
     .footer .social {
-        width: 18rem;
         margin: 1.875rem auto;
     }
 
