@@ -1,6 +1,7 @@
 /*jshint esversion: 11 */
 
 const convertToUXDate = d => {
+    console.log("Date to Be Converted", d);
     let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
     let mo = new Intl.DateTimeFormat('en', { month: 'long' }).format(d);
     let da = new Intl.DateTimeFormat('en', { day: 'numeric' }).format(d);
@@ -8,7 +9,7 @@ const convertToUXDate = d => {
 };
 
 const getRemainingTime = expiry => {
-    let secs = parseInt((expiry - new Date()) / 1000);
+    let secs = parseInt((new Date(expiry.getTime() + new Date().getTimezoneOffset() * 60000) - new Date()) / 1000);
 
     if (secs < 0)
         return false;
@@ -372,6 +373,36 @@ const sDashboardOnLoad = () => {
             });
             $(".overlay-1").show();
         });
+        
+        $(".button.present").click((e) => {
+            const attendanceId = e.target.id.replace("confirm_attendance_", "");
+            console.log(attendanceId);
+
+            $.post("/confirmattendance", { attendanceid: attendanceId })
+            .done(function (data) {
+                console.log(data);
+                if (data?.success) {
+                    $(".fas.fa.fa-times").click(() => {
+                        location.reload();
+                    });
+                    $(".button.back").click(() => {
+                        location.reload();
+                    });
+                    $(".overlay-3").show();
+                }
+                else {
+                    $(".fas.fa.fa-times").click(() => {
+                        $("input[name=subject-code]").val("");
+                        $(".overlay-2").hide();
+                    });
+                    $(".button.back").click(() => {
+                        $("input[name=subject-code]").val("");
+                        $(".overlay-2").hide();
+                    });
+                    $(".overlay-2").show();
+                }
+            });
+        });
     };
 
     let loadStage = 0;
@@ -419,7 +450,7 @@ const sDashboardOnLoad = () => {
                             </div>
                             <div class="btns">
                                 <a href="student-record.html?classId=${classData.class_id}" class="view">view</a>
-                                <a href="#" class="button present ${classData.logtime == null && remaining ? "" : "inactive"}">present</a>
+                                <a href="#" id="confirm_attendance_${classData.attendanceid}" class="button present ${classData.logtime == null && remaining ? "" : "inactive"}">present</a>
                                 <a href="#" class="button done ${classData.logtime != null || !remaining ? "" : "inactive"}">done</a>
                             </div>
                         </div>
@@ -705,9 +736,33 @@ const tDashboardOnLoad = () => {
         e.target.classList.add("btn-pressed");
     });
 
-    $("a.button.account").click(e => {
+    $("#new-class-btn").click(e => {
+        let requestBody = {
+            grade: $("input[name='grade-level']:last").val(),
+            section: $("input[name='section']:last").val(),
+            subject: $("input[name='subject']:last").val()
+        };
+
+        $.post('newclass', requestBody)
+            .done(data => {
+                if (data?.success) {
+                    $(".overlay-4").hide();
+                    $(".loading-overlay").show();
+                    location.reload();
+                }
+                else {
+                    alert("An error occured: " + data?.message);
+                }
+            });
+    });
+
+    $("#new-attendance-btn").click(e => {
+        const expriryTimes = $("input[name='time']").val().split(":");
+        const expiryHour = parseInt(expriryTimes[0]);
+        const expiryMinute = parseInt(expriryTimes[1]);
+
         let fordate = new Date(new Date($("input[name='date']").val()).getTime() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 23);
-        let expiry = new Date(new Date($("input[name='date']").val()).getTime() - (new Date().getTimezoneOffset() * 60000) + (parseInt($(".limits").attr("limit")) * 60000)).toISOString().substr(0, 23);
+        let expiry = new Date(new Date($("input[name='date']").val()).getTime() - (new Date().getTimezoneOffset() * 60000) + (expiryHour * 3600000) + (expiryMinute * 60000) + (parseInt($(".limits").attr("limit")) * 60000)).toISOString().substr(0, 23);
         let classId = location.href.split("#")[1].split("-")[1];
 
         let requestBody = {
@@ -719,16 +774,18 @@ const tDashboardOnLoad = () => {
 
         $.post('newattendance', requestBody)
             .done(data => {
-                if(data?.success){
+                if (data?.success) {
                     $(".overlay-4").hide();
                     $(".loading-overlay").show();
                     location.reload();
                 }
-                else{
+                else {
                     alert("An error occured: " + data?.message);
                 }
             });
     });
+
+    $.getJSON('classes', data => {});
 
     $.getJSON('posts', data => {
         console.log(data);

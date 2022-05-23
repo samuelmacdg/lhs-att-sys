@@ -232,9 +232,10 @@ app.post('/newclass', (req, res) => {
     if (req.isAuthenticated()) {
         const user = req.user;
         const reqBody = req.body;
+        const classCode = Math.random().toString(36).slice(2).substr(0, 8).toUpperCase();
         if (user.type == 1) {
             const command = 'insert into classes(teacher, grade, section, subject, code) values(?, ?, ?, ?, ?);';
-            dataDb.run(command, [user.id, reqBody.grade, reqBody.section, reqBody.subject, reqBody.code], err => {
+            dataDb.run(command, [user.id, reqBody.grade, reqBody.section, reqBody.subject, classCode], err => {
                 if (err) {
                     return res.send({ success: false, message: err });
                 }
@@ -431,6 +432,7 @@ app.get('/attendances', (req, res) => {
                 classes.section as section,
                 classes.subject as subject,
                 users.firstname || ' ' || users.lastname as teacher,
+				attendances.id as attendanceid,
                 attendances.fordate as attdate,
                 attendances.expiry as expiry,
                 attendance_entries.time as logtime
@@ -456,6 +458,61 @@ app.get('/attendances', (req, res) => {
                 left join attendance_entries on attendances.id = attendance_entries.attendance
                 where classes.teacher = ?;`;
             dataDb.all(user.type == 1 ? tCommand : sCommand, [user.id], (err, rows) => {
+                console.log(rows);
+                return res.send({ success: true, result: rows, message: 'success' });
+            });
+        }
+        else {
+            return res.send({ success: false, result: [], message: 'invalid user' });
+        }
+    }
+    else {
+        return res.redirect('/login.html');
+    }
+});
+
+app.post('/confirmattendance', (req, res) => {
+    if (req.isAuthenticated()) {
+        const attendanceId = req.body.attendanceid;
+        const command = `insert into attendance_entries(attendance, student, time) values(?, ?, datetime('now'));`;
+
+        console.log(attendanceId, req.user.id);
+
+        dataDb.run(command, [attendanceId, req.user.id], (err) => {
+            if (err) {
+                return res.send({ success: false, errcode: 2, message: err });
+            }
+            if (this.changes > 0) {
+                return res.send({ success: true, errcode: 0, message: 'success' });
+            }
+            else {
+                return res.send({ success: true, errcode: 1, message: 'not found' });
+            }
+        });
+    }
+    else {
+        res.redirect('login.html');
+    }
+});
+
+app.get('/classattendance', (req, res) => {
+    console.log(req.isAuthenticated(), req.user);
+    if (req.isAuthenticated()) {
+        const user = req.user;
+        const classId = req.query.classid;
+
+        console.log("class attendance", classId);
+
+        if (user) {
+            const command =
+                `select 
+                users.firstname || ' ' || users.lastname, 
+                attendance_entries.time 
+                from class_assignment
+                left join attendance_entries on attendance_entries.student = class_assignment.student
+                join users on class_assignment.student = users.id
+                where class_assignment.class = ?;`;
+            dataDb.all(command, [classId], (err, rows) => {
                 console.log(rows);
                 return res.send({ success: true, result: rows, message: 'success' });
             });
