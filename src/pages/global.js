@@ -373,35 +373,35 @@ const sDashboardOnLoad = () => {
             });
             $(".overlay-1").show();
         });
-        
+
         $(".button.present").click((e) => {
             const attendanceId = e.target.id.replace("confirm_attendance_", "");
             console.log(attendanceId);
 
             $.post("/confirmattendance", { attendanceid: attendanceId })
-            .done(function (data) {
-                console.log(data);
-                if (data?.success) {
-                    $(".fas.fa.fa-times").click(() => {
-                        location.reload();
-                    });
-                    $(".button.back").click(() => {
-                        location.reload();
-                    });
-                    $(".overlay-3").show();
-                }
-                else {
-                    $(".fas.fa.fa-times").click(() => {
-                        $("input[name=subject-code]").val("");
-                        $(".overlay-2").hide();
-                    });
-                    $(".button.back").click(() => {
-                        $("input[name=subject-code]").val("");
-                        $(".overlay-2").hide();
-                    });
-                    $(".overlay-2").show();
-                }
-            });
+                .done(function (data) {
+                    console.log(data);
+                    if (data?.success) {
+                        $(".fas.fa.fa-times").click(() => {
+                            location.reload();
+                        });
+                        $(".button.back").click(() => {
+                            location.reload();
+                        });
+                        $(".overlay-3").show();
+                    }
+                    else {
+                        $(".fas.fa.fa-times").click(() => {
+                            $("input[name=subject-code]").val("");
+                            $(".overlay-2").hide();
+                        });
+                        $(".button.back").click(() => {
+                            $("input[name=subject-code]").val("");
+                            $(".overlay-2").hide();
+                        });
+                        $(".overlay-2").show();
+                    }
+                });
         });
     };
 
@@ -785,7 +785,7 @@ const tDashboardOnLoad = () => {
             });
     });
 
-    $.getJSON('classes', data => {});
+    $.getJSON('classes', data => { });
 
     $.getJSON('posts', data => {
         console.log(data);
@@ -921,4 +921,60 @@ const tDashboardOnLoad = () => {
     });
 
 
+};
+
+const classRecOnLoad = () => {
+    const u = window.location.href;
+    const url = new URL(u);
+    const classId = url.searchParams.get("class");
+    const attDate = url.searchParams.get("att");
+    console.log(classId, attDate);
+
+    $(".loading-overlay").show();
+
+    $("#class-no-records").show();
+    $("#class-yes-records").hide();
+
+    $.getJSON(`classattendance?classid=${classId}&attdate=${attDate == null ? new Date().toISOString() : attDate}`, data => {
+        console.log(data);
+        if (data?.success) {
+            if (data?.result.length > 0) {
+                let classBuilder = '';
+                data?.result.forEach(classrecord => {
+                    let studentId = classrecord.id;
+                    let studentname = classrecord.name;
+                    let logTime = classrecord.time?.substr(11, 5).split(":");
+                    let logHour, logMinute;
+
+                    console.log(classrecord.time?.substr(11, 5).split(":"));
+
+                    if(logTime){
+                        logHour = logTime[0] > 12 ? logTime[0] - 12 : logTime[0];
+                        console.log(logHour);
+                        logMinute = logTime[1];
+                        console.log(logMinute);
+                    }
+                    
+                    const recordHTML =
+                        `<div class="record${logTime ? "" : " late"}" id="class_record_${studentId}">
+                        <div class="record-flex">
+                            <p class="name">${studentname}</p>
+                            <p class="time">${logTime ? `${logHour}:${logMinute}` : "--:--"} <span class="amorpm">${logTime ? logTime[0] < 12 ? "AM" : "PM" : "--"}</span></p>
+                            <a href="student-record.html?classId=${classId}&studentId=${studentId}" class="view button">view</a>
+                        </div>
+                    </div>`;
+                    classBuilder += recordHTML;
+                });
+
+                $("#class-yes-records").html("");
+                $("#class-yes-records").html(classBuilder);
+                $("#class-no-records").hide();
+                $("#class-yes-records").show();
+            }
+            $(".loading-overlay").hide();
+        }
+        else {
+            alert("There was an error getting class information");
+        }
+    });
 };

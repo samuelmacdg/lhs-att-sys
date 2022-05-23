@@ -311,27 +311,27 @@ app.post('/newattendance', (req, res) => {
 });
 
 app.get('/deletepost', (req, res) => {
-    if(req.isAuthenticated()){
+    if (req.isAuthenticated()) {
         const postId = req.query.postId;
         const command = "delete from posts where id = ?;";
         dataDb.run(command, [postId], err => {
             return res.redirect('/teacher-dashboard.html');
         });
     }
-    else{
+    else {
         return res.redirect('/login');
     }
 });
 
 app.get('/cancelattendance', (req, res) => {
-    if(req.isAuthenticated()){
+    if (req.isAuthenticated()) {
         const classId = req.query.classId;
         const command = "delete from attendances where class = ? and date(fordate) = date('now');";
         dataDb.run(command, [classId], err => {
             return res.redirect('/teacher-dashboard.html');
         });
     }
-    else{
+    else {
         return res.redirect('/login');
     }
 });
@@ -500,21 +500,27 @@ app.get('/classattendance', (req, res) => {
     if (req.isAuthenticated()) {
         const user = req.user;
         const classId = req.query.classid;
+        const attDate = req.query.attdate;
 
-        console.log("class attendance", classId);
+        console.log("class attendance", classId, attDate);
 
         if (user) {
             const command =
                 `select 
-                users.firstname || ' ' || users.lastname, 
+                users.id as id,
+                users.lastname || ', ' || users.firstname as name, 
                 attendance_entries.time 
                 from class_assignment
                 left join attendance_entries on attendance_entries.student = class_assignment.student
-                join users on class_assignment.student = users.id
-                where class_assignment.class = ?;`;
-            dataDb.all(command, [classId], (err, rows) => {
+                left join users on class_assignment.student = users.id
+                left join attendances on attendances.id = attendance_entries.attendance
+                where class_assignment.class = ? and ((date(attendances.fordate) = date(?) and attendance_entries.time is not null) or attendance_entries.time is NULL);`;
+            dataDb.all(command, [classId, attDate], (err, rows) => {
                 console.log(rows);
-                return res.send({ success: true, result: rows, message: 'success' });
+                if (rows)
+                    return res.send({ success: true, result: rows, message: 'success' });
+                else
+                    return res.send({ success: false, result: [], message: 'unknown error' });
             });
         }
         else {
