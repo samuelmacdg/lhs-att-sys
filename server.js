@@ -365,7 +365,24 @@ app.get('/studentclassdata', (req, res) => {
             });
         }
         else {
-            return res.redirect("/login.html"); //This is temporary; Replace logic for teachers
+            dataDb.serialize(() => {
+                dataDb
+                    .get(
+                        `select classes.id as classid, firstname || ' ' || lastname as teacher, grade, section, subject from classes join users on users.id = classes.teacher where classes.id = ?;`,
+                        [classId],
+                        (err, row) => {
+                            responseObject.class = row;
+                        }
+                    )
+                    .all(
+                        `select fordate, case when time is null then 'Absent' else 'Present' end as attendance, time from attendances left join (select * from attendance_entries where student = ?) as attendance_entries on attendance_entries.attendance = attendances.id where class = ? order by fordate;`,
+                        [user.id, classId],
+                        (err, rows) => {
+                            responseObject.attendances = rows;
+                            return res.send(responseObject);
+                        }
+                    );
+            });
         }
     }
     else {
