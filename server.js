@@ -549,6 +549,34 @@ app.get('/classattendance', (req, res) => {
     }
 });
 
+app.get('/classinfo', (req, res) => {
+    console.log(req.isAuthenticated(), req.user);
+    if (req.isAuthenticated()) {
+        const user = req.user;
+        const classId = req.query.classid;
+
+        console.log("class attendance", classId);
+
+        if (user) {
+            const command =
+                `select grade, section, subject, firstname || ' ' || lastname as teacher, code from classes join users on users.id = classes.teacher where classes.id = ?;`;
+            dataDb.get(command, [classId], (err, row) => {
+                console.log(row);
+                if (row)
+                    return res.send({ success: true, result: row, message: 'success' });
+                else
+                    return res.send({ success: false, result: null, message: 'unknown error' });
+            });
+        }
+        else {
+            return res.send({ success: false, result: [], message: 'invalid user' });
+        }
+    }
+    else {
+        return res.redirect('/login.html');
+    }
+});
+
 // tell the server what port to listen on
 app.listen(process.env.PORT || 3000, () => {
     console.log('Listening...');

@@ -132,6 +132,7 @@ const signUpOnLoad = () => {
             isEmailValid = false;
         }
         validateForm();
+        console.log("isEmailValid", isEmailValid);
     });
 
     $("#password").focusout(() => {
@@ -168,6 +169,7 @@ const signUpOnLoad = () => {
     });
 
     const validateForm = () => {
+        console.log(isEmailValid, isPasswordValid, isConfirmPassValid);
         if (isEmailValid && isPasswordValid && isConfirmPassValid) {
             enableSubmit();
         }
@@ -408,7 +410,6 @@ const sDashboardOnLoad = () => {
     let loadStage = 0;
 
     $(".loading-overlay:first").show();
-
     $.getJSON("/attendances", (raw_data) => {
         if (raw_data?.success)
             try {
@@ -467,7 +468,7 @@ const sDashboardOnLoad = () => {
                         const elid = `class_${card.class_id}`;
                         let remaining = getRemainingTime(new Date(card.expiry));
                         if (!remaining)
-                            location.reload();
+                            //location.reload();
                         $(`#${elid}`).find("span.time:first").text(remaining ? remaining : "Ended");
                     });
                 }, 999);
@@ -930,6 +931,14 @@ const classRecOnLoad = () => {
     const attDate = url.searchParams.get("att");
     console.log(classId, attDate);
 
+    if(!attDate){
+        const textDate = convertToUXDate(new Date());
+        const dateArray = textDate.replace(",", "").split(" ");
+        $(".months.dropdown > .month.pick").text(dateArray[0]);
+        $(".days.dropdown > .day.pick").text(dateArray[1]);
+        $(".years.dropdown > .year.pick").text(dateArray[2]);
+    }
+
     $(".loading-overlay").show();
 
     $("#class-no-records").show();
@@ -977,4 +986,23 @@ const classRecOnLoad = () => {
             alert("There was an error getting class information");
         }
     });
+
+    $.getJSON(`classinfo?classid=${classId}`, data => {
+        console.log(data);
+        if(data?.success){
+            const d = data?.result;
+            const grade = d?.grade;
+            const section = d?.section;
+            const subject = d?.subject;
+            const teacher = d?.teacher;
+            const code = d?.code;
+
+            $("h1.section").text(`${grade}–${section}`);
+            $("span.subject").text(subject);
+            $("span.teacher").text(teacher);
+            $("p.class-code > strong").text(code);
+        }
+    });
+
+    $(".print.button").click(e => {window.print()});
 };
